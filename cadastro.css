@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+}
+html{
+    padding-left: 20%;
+    padding-right: 20%;
+}
+body{
+    background-color: black;
+}
+form{
+    color: white;
+}
