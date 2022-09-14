@@ -30,7 +30,7 @@
                 echo "Usuario ou senh invalidos";
         
             } else { 
-                header('Location: http://localhost:8080/projeto_P.I/painel_adm.php');
+                header('Location: http://localhost:8080/projeto_P.I/paper-dashboard-master/examples/dashboard.php');
                 exit();
             }
             ?>

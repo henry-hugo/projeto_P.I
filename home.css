@@ -3,6 +3,13 @@
     padding: 0;
     box-sizing: border-box;
 }
+h2 a{
+    text-decoration: none;
+    color: white;
+}
+h2 a:hover{
+    color: white;
+}
 
 html{
     font-size: 62.5%;

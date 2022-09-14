@@ -59,7 +59,7 @@
                 <a href="atualizarform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Atualizar</a>
             </td>
             <td>
-                <a href="excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Excluir</a>
+                <a href="../excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Excluir</a>
             </td>        
         </tr>
     <?php 
