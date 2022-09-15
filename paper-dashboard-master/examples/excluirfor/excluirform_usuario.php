@@ -1,9 +1,9 @@
 <html>
         <head>
-            <title>Excluir o Administrador</title>
+            <title>Excluir o usuario</title>
         </head>
         <body>
-            <h1>Excluir o Administrador</h1>
+            <h1>Excluir o usuario</h1>
             <br>
             <?php
             //dados para conexao ao mysql
@@ -23,15 +23,15 @@
             $id = $_GET["id"];
 
             //realiza uma query sql para buscar o adm que tem o email e a senha passado 
-            $admin = $pdo->query("SELECT * FROM ADMINISTRADOR WHERE ADM_ID=" . $id)->fetch();
+            $admin = $pdo->query("SELECT * FROM USUARIO WHERE USUARIO_ID=" . $id)->fetch();
 
             //se o retorna for vazio 0 , entao a senha ou email estao incorretos
 
-            $nome = $admin["ADM_NOME"];
-            $email = $admin["ADM_EMAIL"];
+            $nome = $admin["USUARIO_NOME"];
+            $email = $admin["USUARIO_EMAIL"];
         ?>
 
-            <Form Action="excluirprocessamento_adm.php" method="POST">
+            <Form Action="../excluirproc/excluirprocessamento_usuario.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo $id ?>">
                 <br>
                 Nome : 

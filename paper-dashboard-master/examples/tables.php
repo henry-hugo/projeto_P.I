@@ -1,17 +1,3 @@
-<!--
-=========================================================
-* Paper Dashboard 2 - v2.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,13 +59,13 @@ Coded by www.creative-tim.com
           </li>
           <li>
             <a href="./user.php">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User Profile</p>
+              <i class="nc-icon nc-tile-56"></i>
+              <p>Table Cadastros</p>
             </a>
           </li>
           <li class="active" >
             <a href="./tables.php">
-              <i class="nc-icon nc-tile-56"></i>
+              <i class="nc-icon nc-badge"></i>
               <p>Table List</p>
             </a>
           </li>
@@ -155,9 +141,6 @@ Coded by www.creative-tim.com
         <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
-                <h4 class="card-title"> Simple Table usuario e adm</h4>
-              </div>
               <?php
             //dados para conexao ao mysql
             $mysqlhostname = "144.22.244.104";
@@ -214,7 +197,7 @@ Coded by www.creative-tim.com
                 <a href="atualizarform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Atualizar</a>
             </td>
             <td>
-                <a href="../excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Excluir</a>
+                <a href="excluirfor/excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Excluir</a>
             </td>        
         </tr>
     <?php 
@@ -283,7 +266,7 @@ Coded by www.creative-tim.com
                 <a href="atualizarform.php?id=<?php echo $linha["USUARIO_ID"] ?>">Atualizar</a>
             </td>
             <td>
-                <a href="excluirform_usuario.php?id=<?php echo $linha["USUARIO_ID"] ?>">Excluir</a>
+                <a href="excluirfor/excluirform_usuario.php?id=<?php echo $linha["USUARIO_ID"] ?>">Excluir</a>
             </td>        
         </tr>
     <?php 

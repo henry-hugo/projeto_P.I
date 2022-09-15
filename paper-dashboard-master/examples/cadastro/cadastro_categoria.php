@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>usuario</title>
+    <title>categoria</title>
 </head>
     <body>
-        <h1>Processamento de Criacao de usuario</h1>
-        <br>
         <?php
         //dados para conexao ao mysql
         $mysqlhostname = "144.22.244.104";
@@ -24,19 +22,17 @@
 
         //captura o vaor das variaves
         $nome = $_POST["nome"];
-        $email = $_POST["email"];
-        $senha = $_POST["senha"];
-        $cpf = $_POST["cpf"];
+        $desc = $_POST["descricao"];
 
         // monta o comando da inserçao
-        $cmdtext = "INSERT INTO USUARIO (USUARIO_NOME, USUARIO_EMAIL, USUARIO_SENHA, USUARIO_CPF) VALUES ('" . $nome . "','" . $email . "','" . $senha . "','" . $cpf . "')";
+        $cmdtext = "INSERT INTO CATEGORIA (CATEGORIA_NOME, CATEGORIA_DESC) VALUES ('" . $nome . "','" . $desc . "')";
         $cmd = $pdo->prepare($cmdtext);
 
         //execute o comando e verifique se teve sucesso
 
         $status = $cmd->execute();
         if($status){
-            echo "criaçao do adm com sucesso";
+            echo "criaçao do usuario com sucesso";
         } else {
             echo "ocorreu um erro ";
         }

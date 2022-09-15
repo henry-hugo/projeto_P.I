@@ -9,7 +9,7 @@
 <body>
     <h1>Cria um novo Administrador</h1>
     <br>    
-    <Form Action="criarprocessamento.php" method="POST">
+    <Form Action="../criaprocesso/criarprocessamento.php" method="POST">
         <br>
         Nome : 
         <input type="text" name="nome">

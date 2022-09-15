@@ -1,17 +1,17 @@
-<!--
-=========================================================
-* Paper Dashboard 2 - v2.0.1
-=========================================================
+<?php
+//dados para conexao ao mysql
+$mysqlhostname = "144.22.244.104";
+$mysqlport ="3306";
+$mysqlusername = "Bravo4Fun";
+$mysqlpassword = "Bravo4Fun";
+$mysqldatabase = "Bravo4Fun";
 
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+//mostra a string de conexao ao mysql
 
-Coded by www.creative-tim.com
+$dsn = 'mysql:host=' . $mysqlhostname . ';dbname=' . $mysqldatabase . ';port' . $mysqlport; 
+$pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
 
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,13 +73,13 @@ Coded by www.creative-tim.com
           </li>
           <li>
             <a href="./user.php">
-              <i class="nc-icon nc-single-02"></i>
-              <p>User Profile</p>
+              <i class="nc-icon nc-tile-56"></i>
+              <p>Table Cadastros</p>
             </a>
           </li>
           <li>
             <a href="./tables.php">
-              <i class="nc-icon nc-tile-56"></i>
+              <i class="nc-icon nc-badge"></i>
               <p>Table List</p>
             </a>
           </li>
@@ -158,68 +158,48 @@ Coded by www.creative-tim.com
               <div class="card-header">
                 <h5 class="card-title">Produtos</h5>
               </div>
-    </div>
-  </div>
-  <!--   Core JS Files   -->
-  <script src="../assets/js/core/jquery.min.js"></script>
-  <script src="../assets/js/core/popper.min.js"></script>
-  <script src="../assets/js/core/bootstrap.min.js"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chart JS -->
-  <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="../assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-  <script src="../assets/demo/demo.js"></script>
-  <script>
-    function SelectText(element) {
-      var doc = document,
-        text = element,
-        range, selection;
-      if (doc.body.createTextRange) {
-        range = document.body.createTextRange();
-        range.moveToElementText(text);
-        range.select();
-      } else if (window.getSelection) {
-        selection = window.getSelection();
-        range = document.createRange();
-        range.selectNodeContents(text);
-        selection.removeAllRanges();
-        selection.addRange(range);
-      }
-    }
-    window.onload = function() {
-      var iconsWrapper = document.getElementById('icons-wrapper'),
-        listItems = iconsWrapper.getElementsByTagName('li');
-      for (var i = 0; i < listItems.length; i++) {
-        listItems[i].onclick = function fun(event) {
-          var selectedTagName = event.target.tagName.toLowerCase();
-          if (selectedTagName == 'p' || selectedTagName == 'em') {
-            SelectText(event.target);
-          } else if (selectedTagName == 'input') {
-            event.target.setSelectionRange(0, event.target.value.length);
-          }
-        }
+              <form action="" method="POST">
+                Nome do produto : 
+                <input type="text" name="nome">
+                <br>
+                Categoria :
+                <select >
+                  <?php
+                    $stmt = $pdo->prepare("SELECT * FROM CATEGORIA");
+                    $stmt->execute();
 
-        var beforeContentChar = window.getComputedStyle(listItems[i].getElementsByTagName('i')[0], '::before').getPropertyValue('content').replace(/'/g, "").replace(/"/g, ""),
-          beforeContent = beforeContentChar.charCodeAt(0).toString(16);
-        var beforeContentElement = document.createElement("em");
-        beforeContentElement.textContent = "\\" + beforeContent;
-        listItems[i].appendChild(beforeContentElement);
-
-        //create input element to copy/paste chart
-        var charCharac = document.createElement('input');
-        charCharac.setAttribute('type', 'text');
-        charCharac.setAttribute('maxlength', '1');
-        charCharac.setAttribute('readonly', 'true');
-        charCharac.setAttribute('value', beforeContentChar);
-        listItems[i].appendChild(charCharac);
-      }
-    }
-  </script>
+                    if($stmt->rowCount() > 0){
+                      while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
+                        echo "<option value='{$dados['CATEGORIA_NOME']}'>{$dados['CATEGORIA_NOME']}</option>";
+                      }
+                    }
+                  ?>
+                </select>
+                <br>
+                descriçao do produto : 
+                <input type="text" name="descricao">
+                <br>
+                imagem:
+                <input type="file" accept="image/*" name="imgordem" formaction="">
+                <br>
+                imagem URL : 
+                <input type="text" name="imgurl" formaction="">
+                <br>
+                preço : 
+                <input type="text" name="nome">
+                <br>
+                desconto : 
+                <input type="text" name="descricao">
+                <br>
+                qtd em estoque : 
+                <input type="number" name="estoque" formaction="">
+                <br>
+                <input type="submit" value="Enviar"> 
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 
 </html>

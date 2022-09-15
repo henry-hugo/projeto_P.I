@@ -27,7 +27,8 @@
 
             //Se o retorna for vazio (0), então a senha ou email estão incorretos
             if ( count($admin) == 0) {
-                echo "Usuario ou senh invalidos";
+                echo "<script>alert('Por favor, digite um email válido.');";
+                echo "location.href='../loginadministrador.html'</script>";
         
             } else { 
                 header('Location: http://localhost:8080/projeto_P.I/paper-dashboard-master/examples/dashboard.php');
