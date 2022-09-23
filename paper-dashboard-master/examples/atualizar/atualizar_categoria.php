@@ -3,7 +3,6 @@
             <title>Excluir o Administrador</title>
         </head>
         <body>
-            <h1>Excluir o Administrador</h1>
             <br>
             <?php
             //dados para conexao ao mysql
@@ -23,28 +22,23 @@
             $id = $_GET["id"];
 
             //realiza uma query sql para buscar o adm que tem o email e a senha passado 
-            $admin = $pdo->query("SELECT * FROM ADMINISTRADOR WHERE ADM_ID=" . $id)->fetch();
+            $admin = $pdo->query("SELECT * FROM CATEGORIA WHERE CATEGORIA_ID=" . $id)->fetch();
 
             //se o retorna for vazio 0 , entao a senha ou email estao incorretos
 
-            $nome = $admin["ADM_NOME"];
-            $email = $admin["ADM_EMAIL"];
-            $ativo = $admin["ADM_ATIVO"];
+            $nome = $admin["CATEGORIA_NOME"];
+            $desc = $admin["CATEGORIA_DESC"];
         ?>
 
-            <Form Action="../excluirproc/excluirprocessamento_adm.php" method="POST">
+            <Form Action="atualizarform_categoria.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo $id ?>">
                 <br>
-                Nome : 
+                nome da Categoria : 
                 <input type="text" name="nome" value="<?php echo $nome ?>">
                 <br>
-                Email : 
-                <input type="text" name="email" value="<?php echo $email ?>">
-                <br>
-                ATIVO :
-                <input type="checkbox" id="ativo" name="ativo" value="1" checked>
+                desc categoria : 
+                <input type="text" name="desc" value="<?php echo $desc ?>">
                 <br>
                 <input type="submit" value="Enviar"> 
             </Form>
         </body>
-        </html>

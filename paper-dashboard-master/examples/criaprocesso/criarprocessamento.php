@@ -7,7 +7,6 @@
     <title>adm</title>
 </head>
     <body>
-        <h1>Processamento de Criacao de Administrador</h1>
         <br>
         <?php
         //dados para conexao ao mysql
@@ -26,16 +25,20 @@
         $nome = $_POST["nome"];
         $email = $_POST["email"];
         $senha = $_POST["senha"];
-
+        if(isset($_POST["ativo"])){
+            $ativo =$_POST['ativo'];
+        }else{
+            $ativo = 0;
+        }
         // monta o comando da inserçao
-        $cmdtext = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA) VALUES ('" . $nome . "','" . $email . "','" . $senha . "')";
+        $cmdtext = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO) VALUES ('" . $nome . "','" . $email . "','" . $senha . "','" . $ativo . "')";
         $cmd = $pdo->prepare($cmdtext);
 
         //execute o comando e verifique se teve sucesso
 
         $status = $cmd->execute();
         if($status){
-            echo "criaçao do adm com sucesso";
+            header ("Location: ../tables.php");
         } else {
             echo "ocorreu um erro ";
         }

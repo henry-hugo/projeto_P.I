@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -15,16 +16,15 @@
         <h3>Entre com os seus dados corretamente para acessar o sistema</h3>
     </div>
     <div class="dados">
-        <form method="POST" action="autent/autentificacao_adm.php">
+        <form method="POST" action="autentificacao_adm.php">
             <label class="email">E-mail:</label>
-            <input class="caixaemail" type="text" name="email" id="email" placeholder="bravo4fun@bravo4fun.com">
+            <input class="caixaemail" type="email" name="email" id="email" placeholder="bravo4fun@bravo4fun.com">
             <label class="senha">Senha:</label>
             <input class="caixasenha" type="password" name="senha" id="senha" placeholder="Amand@123">
             <div class="caixadolembrarme">
             <input type="checkbox" id="lembrarme" name="lembrarme" value="">
             <label class="lembrarme">Lembrar-me</label>
             </div>
-            <a href="cadastro/cadastro_adm.php">Cadastro adm</a>
             <input class="enviar" type="submit" name="enviar" value="Enviar">  
         </form>
     </div>

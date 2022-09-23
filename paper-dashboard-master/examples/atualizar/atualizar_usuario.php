@@ -23,16 +23,17 @@
             $id = $_GET["id"];
 
             //realiza uma query sql para buscar o adm que tem o email e a senha passado 
-            $admin = $pdo->query("SELECT * FROM ADMINISTRADOR WHERE ADM_ID=" . $id)->fetch();
+            $admin = $pdo->query("SELECT * FROM USUARIO WHERE USUARIO_ID=" . $id)->fetch();
 
             //se o retorna for vazio 0 , entao a senha ou email estao incorretos
 
-            $nome = $admin["ADM_NOME"];
-            $email = $admin["ADM_EMAIL"];
-            $ativo = $admin["ADM_ATIVO"];
+            $nome = $admin["USUARIO_NOME"];
+            $email = $admin["USUARIO_EMAIL"];
+            $senha = $admin["USUARIO_SENHA"];
+            $cpf = $admin["USUARIO_CPF"];
         ?>
 
-            <Form Action="../excluirproc/excluirprocessamento_adm.php" method="POST">
+            <Form Action="atualizarform_usuario.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo $id ?>">
                 <br>
                 Nome : 
@@ -41,8 +42,11 @@
                 Email : 
                 <input type="text" name="email" value="<?php echo $email ?>">
                 <br>
-                ATIVO :
-                <input type="checkbox" id="ativo" name="ativo" value="1" checked>
+                senha : 
+                <input type="text" name="senha" value="<?php echo $senha ?>">
+                <br>
+                CPF : 
+                <input type="text" name="cpf" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})">
                 <br>
                 <input type="submit" value="Enviar"> 
             </Form>

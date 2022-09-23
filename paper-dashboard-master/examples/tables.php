@@ -1,3 +1,7 @@
+
+<?php
+  require "verifica.php";
+  if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +35,9 @@
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <?php
+          echo $nomeuser ;
+          ?>
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -48,7 +54,7 @@
           <li>
             <a href="./map.php">
               <i class="nc-icon nc-single-copy-04"></i>
-              <p>Cadastros cateorias</p>
+              <p>Cadastros categorias</p>
             </a>
           </li>
           <li>
@@ -84,7 +90,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Dashboard</a>
+            <a class="navbar-brand" href="cadastro/cadastro_adm.php">criar novo ADMINISTRADOR</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -125,11 +131,8 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link btn-rotate" href="javascript:;">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
+              <a class="nav-link btn-rotate" href="logout.php">
+                  <p>sair</p>
                 </a>
               </li>
             </ul>
@@ -165,6 +168,7 @@
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Senha</th>
+                <th>Ativo</th>
                 <th>Atualizacao</th>
                 <th>Exclusao</th>            
             </tr>
@@ -192,9 +196,14 @@
                 <?php
                 echo $linha["ADM_SENHA"];
                 ?>
-            </td>    
+            </td> 
             <td>
-                <a href="atualizarform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Atualizar</a>
+                <?php
+                echo $linha["ADM_ATIVO"];
+                ?>
+            </td>   
+            <td>
+                <a href="atualizar/atualizar_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Atualizar</a>
             </td>
             <td>
                 <a href="excluirfor/excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Excluir</a>
@@ -263,7 +272,7 @@
                 ?>
             </td>    
             <td>
-                <a href="atualizarform.php?id=<?php echo $linha["USUARIO_ID"] ?>">Atualizar</a>
+                <a href="atualizar/atualizar_usuario.php?id=<?php echo $linha["USUARIO_ID"] ?>">Atualizar</a>
             </td>
             <td>
                 <a href="excluirfor/excluirform_usuario.php?id=<?php echo $linha["USUARIO_ID"] ?>">Excluir</a>
@@ -296,3 +305,5 @@
 </body>
 
 </html>
+
+<?php else: header ("Location:   loginadministrador.php"); endif ?>

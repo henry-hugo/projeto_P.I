@@ -22,23 +22,23 @@
 
             $nome = $_POST["nome"];
             $email = $_POST["email"];
+            $senha = $_POST["senha"];
             $id = $_POST["id"];
+            if(isset($_POST["ativo"])){
+                $ativo =$_POST['ativo'];
+            }else{
+                $ativo = 0;
+            }
 
             //montar o comando da inserçao
 
-            $cmdtext = "DELETE FROM ADMINISTRADOR WHERE ADM_ID=" .$id;
-            $cmd = $pdo->prepare($cmdtext);
-            
-            // executa o comando e verifica se teve sucesso
+            $admin = $pdo->query("UPDATE ADMINISTRADOR SET ADM_NOME= '$nome' , ADM_EMAIL= '$email' , ADM_SENHA= '$senha' , ADM_ATIVO= '$ativo' WHERE ADM_ID= '$id'")->fetchAll();
 
-            $status = $cmd->execute();
-            if($status) {
-                echo "Exclusão com sucesso!";
-            } else {
-                echo "Ocorreu um erro ao excluir!";
-            }
-
+            if ( count($admin) == 0) {
+               echo "<script>location.href='../tables.php'</script>";
+           } else { 
+               echo "erro";
+           }
             ?>
-            <a href="listaradmins.php">Voltar para a Pagina de Lista</a>
         </body>
         </html>  

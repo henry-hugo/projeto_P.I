@@ -3,7 +3,7 @@
             <title>Excluir o Administrador</title>
         </head>
         <body>
-            <h1>Excluir o Administrador</h1>
+            <h1>Atualizar o Administrador</h1>
             <br>
             <?php
             //dados para conexao ao mysql
@@ -29,10 +29,11 @@
 
             $nome = $admin["ADM_NOME"];
             $email = $admin["ADM_EMAIL"];
+            $senha = $admin["ADM_SENHA"];
             $ativo = $admin["ADM_ATIVO"];
         ?>
 
-            <Form Action="../excluirproc/excluirprocessamento_adm.php" method="POST">
+            <Form Action="atualizarform_adm.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo $id ?>">
                 <br>
                 Nome : 
@@ -41,9 +42,12 @@
                 Email : 
                 <input type="text" name="email" value="<?php echo $email ?>">
                 <br>
+                senha : 
+                <input type="text" name="senha" value="<?php echo $senha ?>">
+                <br>
                 ATIVO :
                 <input type="checkbox" id="ativo" name="ativo" value="1" checked>
-                <br>
+                <BR>
                 <input type="submit" value="Enviar"> 
             </Form>
         </body>

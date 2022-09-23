@@ -1,20 +1,7 @@
 <?php
-  //dados para conexao ao mysql
-  $mysqlhostname = "144.22.244.104";
-  $mysqlport ="3306";
-  $mysqlusername = "Bravo4Fun";
-  $mysqlpassword = "Bravo4Fun";
-  $mysqldatabase = "Bravo4Fun";
-
-  //mostra a string de conexao ao mysql
-
-  $dsn = 'mysql:host=' . $mysqlhostname . ';dbname=' . $mysqldatabase . ';port' . $mysqlport; 
-  $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
-
-  //
-?>
-
-
+  require "verifica.php";
+  if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
+  <!--setcookie( 'nome', )-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +36,7 @@
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
           <?php
-          echo ' hello ! ' ;
+          echo $nomeuser ;
           ?>
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
@@ -67,7 +54,7 @@
           <li>
             <a href="./map.php">
               <i class="nc-icon nc-single-copy-04"></i>
-              <p>Cadastros cateorias</p>
+              <p>Cadastros categorias</p>
             </a>
           </li>
           <li>
@@ -144,11 +131,8 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link btn-rotate" href="javascript:;">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
+                <a class="nav-link btn-rotate" href="logout.php">
+                  <p>sair</p>
                 </a>
               </li>
             </ul>
@@ -170,7 +154,15 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Quantidade de Ingressos</p>
-                      <p class="card-title">0<p>
+                      <?php 
+                      $query_ingressos = "SELECT SUM(PRODUTO_QTD) AS valor_ingressos FROM PRODUTO_ESTOQUE";
+                      $ingressos = $pdo->prepare($query_ingressos);
+                      $ingressos->execute();
+                      $row_ingressos = $ingressos->fetch(PDO::FETCH_ASSOC);
+
+
+                      ?>
+                      <p class="card-title"> <?php echo $row_ingressos['valor_ingressos'] ;?><p>
                     </div>
                   </div>
                 </div>
@@ -222,7 +214,7 @@
                   <div class="col-7 col-md-8">
                     <div class="numbers">
                       <p class="card-category">Ingresso Disponíveis</p>
-                      <p class="card-title">0<p>
+                      <p class="card-title"> <?php echo $row_ingressos['valor_ingressos'] ;?><p>
                     </div>
                   </div>
                 </div>
@@ -242,13 +234,22 @@
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-favourite-28 text-primary"></i>
+                      <i class="nc-icon nc-money-coins text-success"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Faturamento</p>
-                      <p class="card-title">R$0,0<p>
+                      <p class="card-category">Futuro Faturamento</p>
+                      <?php 
+                      $query_ingresso = "SELECT SUM(PRODUTO_QTD * PRODUTO_PRECO) AS preco_ingressos FROM PRODUTO_ESTOQUE, PRODUTO";
+                      $ingresso = $pdo->prepare($query_ingresso);
+                      $ingresso->execute();
+                      $row_ingresso = $ingresso->fetch(PDO::FETCH_ASSOC);
+
+
+                      ?>
+    
+                      <p class="card-title">R$ <?php echo $row_ingresso['preco_ingressos'] ;?><p>
                         
                     </div>
                   </div>
@@ -256,3 +257,5 @@
               </div>
   </body>
 </html>
+
+<?php else: header ("Location:   loginadministrador.php"); endif ?>

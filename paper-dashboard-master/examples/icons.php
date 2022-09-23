@@ -1,17 +1,6 @@
 <?php
-//dados para conexao ao mysql
-$mysqlhostname = "144.22.244.104";
-$mysqlport ="3306";
-$mysqlusername = "Bravo4Fun";
-$mysqlpassword = "Bravo4Fun";
-$mysqldatabase = "Bravo4Fun";
-
-//mostra a string de conexao ao mysql
-
-$dsn = 'mysql:host=' . $mysqlhostname . ';dbname=' . $mysqldatabase . ';port' . $mysqlport; 
-$pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
-
-?>
+  require "verifica.php";
+  if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +34,9 @@ $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <?php
+          echo $nomeuser ;
+          ?>
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -62,7 +53,7 @@ $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
           <li>
             <a href="./map.php">
               <i class="nc-icon nc-single-copy-04"></i>
-              <p>Cadastros cateorias</p>
+              <p>Cadastros categorias</p>
             </a>
           </li>
           <li class="active">
@@ -139,11 +130,8 @@ $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link btn-rotate" href="javascript:;">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
+              <a class="nav-link btn-rotate" href="logout.php">
+                  <p>sair</p>
                 </a>
               </li>
             </ul>
@@ -158,19 +146,19 @@ $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
               <div class="card-header">
                 <h5 class="card-title">Produtos</h5>
               </div>
-              <form action="" method="POST">
+              <form action="criaprodutos.php" method="POST">
                 Nome do produto : 
                 <input type="text" name="nome">
                 <br>
                 Categoria :
-                <select >
+                <select name="categoria">
                   <?php
                     $stmt = $pdo->prepare("SELECT * FROM CATEGORIA");
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
                       while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
-                        echo "<option value='{$dados['CATEGORIA_NOME']}'>{$dados['CATEGORIA_NOME']}</option>";
+                        echo "<option value='{$dados['CATEGORIA_ID']}'>{$dados['CATEGORIA_NOME']}</option>";
                       }
                     }
                   ?>
@@ -179,23 +167,71 @@ $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
                 descriçao do produto : 
                 <input type="text" name="descricao">
                 <br>
-                imagem:
-                <input type="file" accept="image/*" name="imgordem" formaction="">
-                <br>
-                imagem URL : 
-                <input type="text" name="imgurl" formaction="">
-                <br>
                 preço : 
-                <input type="text" name="nome">
+                <input type="text" name="preco">
                 <br>
                 desconto : 
-                <input type="text" name="descricao">
+                <input type="text" name="desconto">
                 <br>
-                qtd em estoque : 
-                <input type="number" name="estoque" formaction="">
+                ativo : 
+                <input type="number" name="ativo">
                 <br>
-                <input type="submit" value="Enviar"> 
-              </form>
+                <input type="submit" value="Enviar">
+                </form> 
+              <BR>
+              <div>
+                <h5>Estoque</h5>
+                <form action="criaprodutos_estoque.php" method="POST">
+                  <br>
+                  PRODUTO :
+                  <select name="produtoid">
+                  <?php
+                  
+                      $stmt = $pdo->prepare("SELECT * FROM PRODUTO");
+                      $stmt->execute();
+
+                      if($stmt->rowCount() > 0){
+                        while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
+                          echo "<option value='{$dados['PRODUTO_ID']}'>{$dados['PRODUTO_NOME']}</option>";
+                        }
+                      }  
+                    ?>
+                  </select>
+                  quantidade Estoque : 
+                  <input type="number" name="quantidade">
+                  <br>
+                  <input type="submit" value="Enviar">
+                  </form>
+              </div>
+              <div>  
+                <h5>imagem produto</h5>
+                <form action="criaprodutos_imagem.php" method="POST">
+                ordem imagem : 
+                <input type="number" name="ordem">
+                <br>
+                produto :
+                <select name="produtoid">
+                  <option>option</option>
+                <?php
+                
+                    $stmt = $pdo->prepare("SELECT * FROM PRODUTO");
+                    $stmt->execute();
+
+                    if($stmt->rowCount() > 0){
+                      while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
+                        echo "<option value='{$dados['PRODUTO_ID']}'>{$dados['PRODUTO_NOME']}</option>";
+                      }
+                    }  
+                  ?>
+                </select>
+                <br>
+                url imagem : 
+                <input type="text" name="imgurl">
+                <br>
+                <input type="submit" value="Enviar">
+                </form>
+              </div>    
+
             </div>
           </div>
         </div>
@@ -203,3 +239,7 @@ $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
 </body>
 
 </html>
+
+<?php else: header ("Location:   loginadministrador.php"); endif ?>
+
+

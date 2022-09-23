@@ -20,6 +20,9 @@
         Senha : 
         <input type="password" name="senha">
         <br>
+        ATIVO :
+        <input type="checkbox" id="ativo" name="ativo" value="1" checked>
+        <br>
         <input type="submit" value="Enviar"> 
     </Form>  
 </body>

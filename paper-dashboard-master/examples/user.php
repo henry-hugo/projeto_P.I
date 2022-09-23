@@ -1,3 +1,6 @@
+<?php
+  require "verifica.php";
+  if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +8,7 @@
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Paper Dashboard 2 by Creative Tim
@@ -31,7 +35,9 @@
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <?php
+          echo $nomeuser ;
+          ?>
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -48,7 +54,7 @@
           <li>
             <a href="./map.php">
               <i class="nc-icon nc-single-copy-04"></i>
-              <p>Cadastros cateorias</p>
+              <p>Cadastros categorias</p>
             </a>
           </li>
           <li>
@@ -125,11 +131,8 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link btn-rotate" href="javascript:;">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
+              <a class="nav-link btn-rotate" href="logout.php">
+                  <p>sair</p>
                 </a>
               </li>
             </ul>
@@ -142,7 +145,7 @@
           <div class="col-md-12">
             <div class="card">
               <h2>lista de produtos Cadastrados</h2>
-            <?php
+        <?php
             //dados para conexao ao mysql
             $mysqlhostname = "144.22.244.104";
             $mysqlport ="3306";
@@ -155,57 +158,90 @@
             $dsn = 'mysql:host=' . $mysqlhostname . ';dbname=' . $mysqldatabase . ';port' . $mysqlport; 
             $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
 
-            //montar o comando de inserçao
-            $cmd = $pdo->query("SELECT * FROM PRODUTO") ; 
-    ?>   
-        <table border="1">
+            $query_produtos = "SELECT pro.PRODUTO_ID, pro.PRODUTO_NOME AS pro_PRODUTO_NOME, pro.CATEGORIA_ID, pro.PRODUTO_DESC, pro.PRODUTO_PRECO, pro.PRODUTO_DESCONTO, 
+                               est.PRODUTO_QTD, img.IMAGEM_ORDEM, img.IMAGEM_URL
+                               FROM PRODUTO pro
+                               LEFT JOIN PRODUTO_ESTOQUE AS est ON est.PRODUTO_ID = pro.PRODUTO_ID
+                               LEFT JOIN PRODUTO_IMAGEM AS img ON img.PRODUTO_ID = pro.PRODUTO_ID ";
+
+            $result_produtos = $pdo->prepare($query_produtos);
+            $result_produtos->execute();
+
+            ?>
+
+            <table border="1">
             <tr>
                 <th>Id</th>
                 <th>Nome</th>
                 <th>Categoria</th>
                 <th>Preço</th>
-                <th>Desc.</th>           
+                <th>desconto</th>
+                <th>descriçao</th>
+                <th>qtd estoque</th>
+                <th>url imagem</th>
+                <th>Atualizar</th>
+                <!--<th>Excluir</th>-->           
             </tr>
-    <?php
-    while($linha = $cmd->fetch()){
-    ?>    
-        <tr>
-            <td>
-                <?php
-                    echo $linha[""];
-                ?>    
+            <?php
+            while($row_produto = $result_produtos->fetch(PDO::FETCH_ASSOC)){
+              //  var_dump($row_produto);
+                extract($row_produto);
+            ?>
+            <tr>
+                <td>
+                    <?php
+                        echo $PRODUTO_ID;
+                    ?>
+                </td>
+                <td>
+                    <?php   
+                        echo $pro_PRODUTO_NOME; 
+                    ?>
+                </td>
             
-            </td>
-            <td>
-                <?php
-                echo $linha[""];
-                ?>
-            </td>
-            <td>
-                <?php
-                echo $linha[""];
-                ?>
-            </td>    
-            <td>
-                <?php
-                echo $linha[""];
-                ?>
-            </td> 
-            <td>
-                <?php
-                echo $linha[""];
-                ?>
-            </td>   
-            <td>
-                <a href="atualizarform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Atualizar</a>
-            </td>
-            <td>
-                <a href="excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>">Excluir</a>
-            </td>        
-        </tr>
-        <?php 
-    }
-    ?>
+                <td>
+                    <?php    
+                        echo  $CATEGORIA_ID ; 
+                    ?>
+                </td>
+        
+                <td>
+                    <?php
+                        echo $PRODUTO_PRECO ; 
+                    ?>
+                </td>
+            
+                <td>
+                    <?php
+                        echo  $PRODUTO_DESCONTO ; 
+                    ?>
+                </td>
+        
+                <td>
+                    <?php
+                        echo  $PRODUTO_DESC ;
+                    ?>
+                </td>
+            
+                <td>
+                    <?php
+                        echo  $PRODUTO_QTD ;
+                    ?>
+                </td>
+        
+                <td >
+                    <img style="width:50px; height:30px;" src="<?php echo  $IMAGEM_URL;?>">       
+                </td>
+                <td>
+                    <a href="atualizar/atualizarform_produto.php?id=<?php echo $PRODUTO_ID ?>">Atualizar</a>
+                </td>
+               <!-- <td>
+                    <a href="excluirform_adm.php?id=<?php echo $linha["PRODUTO_ID"] ?>">Excluir</a>
+                </td> -->
+            </tr>
+        <?php
+            }
+        ?>
         </table>  
     </div>
     <div class="card">
@@ -230,7 +266,9 @@
             <tr>
                 <th>Id</th>
                 <th>Nome</th>
-                <th>Desc.</th>            
+                <th>Desc.</th>
+                <th>Atualizar</th>
+                <!--<th>Excluir</th>-->            
             </tr>
     <?php
     while($linha = $cmd->fetch()){
@@ -253,11 +291,11 @@
                 ?>
             </td>    
             <td>
-                <a href="atualizarform_adm.php?id=<?php echo $linha["CATEGORIA_ID"] ?>">Atualizar</a>
+                <a href="atualizar/atualizar_categoria.php?id=<?php echo $linha["CATEGORIA_ID"] ?>">Atualizar</a>
             </td>
-            <td>
+            <!--<td>
                 <a href="excluirform_adm.php?id=<?php echo $linha["CATEGORIA_ID"] ?>">Excluir</a>
-            </td>        
+            </td> -->       
         </tr>
         <?php 
     }
@@ -280,3 +318,5 @@
   <script src="../assets/demo/demo.js"></script>
 </body>
 </html>
+
+<?php else: header ("Location:   loginadministrador.php"); endif ?>

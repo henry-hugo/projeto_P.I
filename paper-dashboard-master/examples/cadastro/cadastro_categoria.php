@@ -32,7 +32,7 @@
 
         $status = $cmd->execute();
         if($status){
-            echo "criaçao do usuario com sucesso";
+            header ('Location: ../map.php');
         } else {
             echo "ocorreu um erro ";
         }

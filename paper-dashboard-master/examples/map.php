@@ -1,17 +1,6 @@
-<!--
-=========================================================
-* Paper Dashboard 2 - v2.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
+<?php
+  require "verifica.php";
+  if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +34,9 @@ Coded by www.creative-tim.com
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <?php
+          echo $nomeuser ;
+          ?>
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -62,7 +53,7 @@ Coded by www.creative-tim.com
           <li class="active">
             <a href="./map.php">
               <i class="nc-icon nc-single-copy-04"></i>
-              <p>Cadastros cateorias</p>
+              <p>Cadastros categorias</p>
             </a>
           </li>
           <li >
@@ -139,11 +130,8 @@ Coded by www.creative-tim.com
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link btn-rotate" href="javascript:;">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
+              <a class="nav-link btn-rotate" href="logout.php">
+                  <p>sair</p>
                 </a>
               </li>
             </ul>
@@ -187,3 +175,5 @@ Coded by www.creative-tim.com
   <script src="../assets/demo/demo.js"></script>    
 </body>
 </html>
+
+<?php else: header ("Location:   loginadministrador.php"); endif ?>
