@@ -1,0 +1,61 @@
+*{
+    border: 0;
+    box-sizing: border-box;
+}
+body {
+   font-family: Verdana, sans-serif;
+   background-color: #FFC0CB;
+   color: black;
+}
+
+img {
+    float: left;
+}
+
+.dados {
+    position: absolute;
+    left: 47%;
+    bottom: 150px;
+}
+
+.textologin {
+    text-align: center;
+    padding: 60px;
+}
+
+.email, .senha, .lembrarme, #lembrarme {
+    display: block;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.caixaemail, .caixasenha {
+   width: 500px;
+   padding: 10px;
+   border-radius: 10px;
+   border: 1px solid #00CED1;
+}
+
+.caixadolembrarme {
+    padding: 10px;
+}
+
+.lembrarme, #lembrarme {
+    display: inline;
+    padding-top: 30px;
+}
+
+.enviar{
+    width: 150px;
+    padding: -1px 110px;;
+    border: 1px solid #00CED1;
+    border-radius: 10px;
+}
+
+a{
+    padding: 0px 116px 0px 0px;
+}
+.enviar:hover{
+    color: #00CED1;
+    background-color: #FFC0CB;   
+}
