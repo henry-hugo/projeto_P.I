@@ -30,15 +30,17 @@
         }else{
             $ativo = 0;
         }
+
+        $hash = password_hash($senha, PASSWORD_DEFAULT);
         // monta o comando da inserçao
-        $cmdtext = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO) VALUES ('" . $nome . "','" . $email . "','" . $senha . "','" . $ativo . "')";
+        $cmdtext = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO) VALUES ('" . $nome . "','" . $email . "','" . $hash . "','" . $ativo . "')";
         $cmd = $pdo->prepare($cmdtext);
 
         //execute o comando e verifique se teve sucesso
 
         $status = $cmd->execute();
         if($status){
-            header ("Location: ../tables.php");
+            header ("Location: ../adm.php");
         } else {
             echo "ocorreu um erro ";
         }

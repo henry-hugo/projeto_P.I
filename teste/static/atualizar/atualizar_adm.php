@@ -104,20 +104,20 @@
 
 			<main class="content">
                 <Form Action="atualizarform_adm.php" method="POST">
-                    <input type="hidden" name="id" value="<?php echo $id ?>">
-                    <br>
-                    Nome : 
-                    <input type="text" name="nome" value="<?php echo $nome ?>">
-                    <br>
-                    Email : 
-                    <input type="email" name="email" value="<?php echo $email ?>">
-                    <br>
-                    senha : 
-                    <input type="text" name="senha" value="<?php echo $senha ?>">
-                    <br>
-                    ATIVO :
-                    <input type="checkbox" id="ativo" name="ativo" value="1" checked>
-                    <BR>
+                    <input type="hidden" name="id"  value="<?php echo $id ?>">
+                    
+                    <label for="exampleFormControlInput1" class="form-label">NOME</label>
+                    <input type="text" name="nome" class="form-control" required onchange='campobranco' value="<?php echo $nome ?>">
+                    
+                    <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
+                    <input type="email" name="email" class="form-control" required onchange='campobranco' value="<?php echo $email ?>">
+                    
+                    <label for="exampleFormControlInput1" class="form-label">SENHA</label>
+                    <input type="text" name="senha" class="form-control" required onchange='campobranco' value="<?php echo $senha ?>">
+                    
+                    <label for="exampleFormControlInput1" class="form-label">ATIVO</label>
+                    <input type="checkbox" id="ativo" name="ativo"  value="1" checked>
+                    
                     <input type="submit" value="Enviar"> 
                 </Form>
 			
@@ -128,6 +128,7 @@
 	</div>
 
 	<script src="../js/app.js"></script>
+	<script src="../js/teste.js"></script>
 
 </body>
 

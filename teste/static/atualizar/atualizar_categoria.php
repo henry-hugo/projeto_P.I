@@ -11,6 +11,7 @@
 
    $nome = $admin["CATEGORIA_NOME"];
    $desc = $admin["CATEGORIA_DESC"];
+   $ativo = $admin["CATEGORIA_ATIVO"];
   if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
   <!--setcookie( 'nome', )-->
 <!DOCTYPE html>
@@ -102,15 +103,18 @@
 
 			<main class="content">
             <Form Action="atualizarform_categoria.php" method="POST">
-                <input type="hidden" name="id" value="<?php echo $id ?>">
+                <input type="hidden" name="id"  value="<?php echo $id ?>">
                 <br>
                 nome da Categoria : 
-                <input type="text" name="nome" value="<?php echo $nome ?>">
+                <input type="text" name="nome" required onchange='campobranco' value="<?php echo $nome ?>">
                 <br>
                 desc categoria : 
-                <input type="text" name="desc" value="<?php echo $desc ?>">
+                <input type="text" name="desc" required onchange='campobranco' value="<?php echo $desc ?>">
                 <br>
-                <input type="submit" value="Enviar"> 
+				ATIVO :
+				<input type="checkbox" id="ativo" name="ativo" value="<?php echo $ativo ?>" checked>
+                <br>
+				<input type="submit" value="Enviar"> 
             </Form>
 			
 			</main>

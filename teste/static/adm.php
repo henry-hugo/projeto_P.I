@@ -16,7 +16,7 @@
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
-
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="canonical" href="https://demo-basic.adminkit.io/ui-buttons.html" />
 
 	<title>Buttons | AdminKit Demo</title>
@@ -84,7 +84,7 @@
                 				<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark"><?php echo $nomeuser ;?></span>
               				</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="logout.php">sair</a>
+								<a class="dropdown-item" href="function/logout.php">sair</a>
 							</div>
 						</li>
 					</ul>
@@ -92,17 +92,61 @@
 			</nav>
 
 			<main class="content">
-			<h1>Listar os Administradores</h1>
+				<div class="container-fluid p-0">
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+						<i class="align-middle" data-feather="plus"></i> <span class="align-middle"> Nova Administrador</span>
+					</button>
+					<!-- Modal -->
+					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+							</div>
+							<div class="modal-body">
+							<form action="criaprocesso/criarprocessamento.php" method="POST">
+							<h3 class="modal-title" id="staticBackdropLabel">Cadastro de Administrador <input type="checkbox" id="ativo" name="ativo" value="1" checked></h3> 
+								<div class="mb-3">
+									<label for="exampleFormControlInput1" class="form-label">Nome</label>
+									<input type="text" class="form-control" name="nome" required onchange='campobranco' id="categoria_name" placeholder="abc">
+								  </div>
+								  <div class="mb-3">
+									<label for="exampleFormControEMAIL" class="form-label"> Email</label>
+									<input type="email" class="form-control" name="email" required onchange='campobranco' required onchange='confere(email, confirme_email, "email")';  id="email" placeholder="abc@gmail.com">
+								  </div>
+								  <div class="mb-3">
+									<label for="exampleFormControEMAIL" class="form-label"> Confirme o Email</label>
+									<input type="email" class="form-control" name="confirme_email" required onchange='confereemail();' id="confirme_email" placeholder="abc@gmail.com">
+								  </div>
+								  <div class="mb-3">
+									<label for="exampleFormControsenha" class="form-label"> Senha</label>
+									<input type="password" class="form-control" name="senha" size=15 required onchange='campobranco' required onchange='confere(senha, confirme_senha, "senhas")'; id="senha" placeholder="****">
+								  </div>
+								
+								<div class="mb-3">
+									<label for="exampleFormControsenha" class="form-label"> Confirme a Senha</label>
+									<input type="password" class="form-control" name="confirme_senha" size=15 required onchange='conferesenha();' id="confirme_senha" placeholder="****">
+								</div>
+								  <div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+									<input type="submit" value="enviar" class="btn btn-primary">
+								</div>
+							</div>  
+							</form>	
+						</div>
+						</div>
+					</div>
+			<h1>Listar os Administradores</h1> 
 				<br>
 				<table class="table table-dark table-striped">
 					<tr>
-						<th>Id</th>
-						<th>Nome</th>
-						<th>Email</th>
-						<th>Senha</th>
-						<th>ativo</th>
-						<th><i class="align-middle" data-feather="edit"></i> <span class="align-middle"></span></th>
-						<th><i class="align-middle" data-feather="trash-2"></i> <span class="align-middle"></span></th>            
+						<th scope="col">ID</th>
+						<th scope="col">NOME</th>
+						<th scope="col">EMAIL</th>
+						<th scope="col">SENHA</th>
+						<th scope="col"><span style="color:green;" >AT<span style="color:#FFFF00;" >I</span><span style="color:red;" >VO</span></th>
+						<th scope="col"><i class="align-middle"  data-feather="edit"></i> <span class="align-middle"></span></th>
+						<th scope="col"><i class="align-middle" style="color:black;"  data-feather="trash-2"></i> <span class="align-middle"></span></th>            
 					</tr>
 			<?php
 			while($linha = $cmd->fetch()){
@@ -132,19 +176,20 @@
 					<td>
 						<?php
 						 	$linha["ADM_ATIVO"];
-						if($linha["ADM_ATIVO"] == "1"){
-							echo "SIM";
-						}else{
-							echo "NÃO";
-						}
+						if($linha["ADM_ATIVO"] == "1"){ ?>
+							<i class="align-middle" style="color:green;"  data-feather="check-circle"></i> <span class="align-middle"></span>
+						<?php }else{ ?>
+							<i class="align-middle" style="color:red;" data-feather="alert-octagon"></i> <span class="align-middle"></span>
+						<?php
+						} 
 
 						?>
 					</td>    
 					<td>
-						<a href="atualizar/atualizar_adm.php?id=<?php echo $linha["ADM_ID"] ?>"><i class="align-middle" data-feather="edit"></i> <span class="align-middle"></span></a>
+						<a href="atualizar/atualizar_adm.php?id=<?php echo $linha["ADM_ID"] ?>"><i class="align-middle" style="color:#fff;" data-feather="edit"></i> <span class="align-middle"></span></a>
 					</td>
 					<td>
-						<a href="../excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>"><i class="align-middle" data-feather="trash-2"></i> <span class="align-middle"></span></a>
+						<a href="../excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>"><i class="align-middle" style="color:black;" data-feather="trash-2"></i> <span class="align-middle"></span></a>
 					</td>        
 				</tr>
 			<?php 
@@ -155,6 +200,7 @@
 	</div>
 
 	<script src="js/app.js"></script>
+	<script src="js/teste.js"></script>
 
 </body>
 

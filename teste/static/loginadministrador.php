@@ -18,9 +18,9 @@
     <div class="dados">
         <form method="POST" action="autentificacao_adm.php">
             <label class="email">E-mail:</label>
-            <input class="caixaemail" type="email" name="email" id="email" placeholder="bravo4fun@bravo4fun.com">
+            <input class="caixaemail" type="password" name="email" required onchange='campobranco' id="email" placeholder="bravo4fun@bravo4fun.com">
             <label class="senha">Senha:</label>
-            <input class="caixasenha" type="password" name="senha" id="senha" placeholder="Amand@123">
+            <input class="caixasenha" type="password" name="senha" required onchange='campobranco' id="senha" placeholder="Amand@123">
             <div class="caixadolembrarme">
             <input type="checkbox" id="lembrarme" name="lembrarme" value="">
             <label class="lembrarme">Lembrar-me</label>

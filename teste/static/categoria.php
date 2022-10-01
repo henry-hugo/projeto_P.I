@@ -18,7 +18,7 @@
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-profile.html" />
-
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<title>Profile | AdminKit Demo</title>
 
 	<link href="css/app.css" rel="stylesheet">
@@ -84,7 +84,7 @@
                 				<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark"><?php echo $nomeuser ;?></span>
               				</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="logout.php">sair</a>
+								<a class="dropdown-item" href="function/logout.php">sair</a>
 							</div>
 						</li>
 					</ul>
@@ -101,18 +101,19 @@
 					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 						<div class="modal-dialog">
 						<div class="modal-content">
-							<div class="modal-header">
-							<h3 class="modal-title" id="staticBackdropLabel">Cadastro de Categoria</h3> 
-							</div>
+							
 							<div class="modal-body">
 							<form action="cadastro/cadastro_categoria.php" method="POST">
+							<div class="modal-header">
+							<h3 class="modal-title" id="staticBackdropLabel">Cadastro de Categoria </h3>
+							</div>							 
 								<div class="mb-3">
 									<label for="exampleFormControlInput1" class="form-label">Nome da Categoria</label>
-									<input type="text" class="form-control" name="nome" id="categoria_name" placeholder="TRAP">
+									<input type="text" class="form-control" name="nome" size=15 required onchange='campobranco();' id="categoria_name" placeholder="TRAP">
 								  </div>
 								  <div class="mb-3">
 									<label for="exampleFormControlTextarea1" class="form-label"> descriçao</label>
-									<textarea class="form-control" name="descricao" id="descricao" rows="3"></textarea>
+									<textarea class="form-control" name="descricao"  id="descricao" rows="3"></textarea>
 								  </div>
 								</div>
 								<div class="modal-footer">
@@ -131,6 +132,7 @@
 								<th scope="col">#</th>
 								<th scope="col">nome</th>
 								<th scope="col">descriçao</th>
+								<th scope="col">ATIVO</th>
 								<th scope="col"><i class="align-middle" data-feather="edit"></i> <span class="align-middle"></span></th>
 							  </tr>
 							  <?php
@@ -155,6 +157,18 @@
 									?>
 								</td>
 								<td>
+									<?php
+										$linha["CATEGORIA_ATIVO"];
+									if($linha["CATEGORIA_ATIVO"] == "1"){ ?>
+										<i class="align-middle" style="color:green;"  data-feather="check-circle"></i> <span class="align-middle"></span>
+									<?php }else{ ?>
+										<i class="align-middle" style="color:red;" data-feather="alert-octagon"></i> <span class="align-middle"></span>
+									<?php
+									} 
+
+									?>
+								</td> 
+								<td>
 									<a class="link" href="atualizar/atualizar_categoria.php?id=<?php echo $linha["CATEGORIA_ID"] ?>">
 										<i class="align-middle" data-feather="edit"></i> <span class="align-middle"></span>
 									</a>
@@ -174,8 +188,10 @@
 	</div>
 	
 	<script src="js/app.js"></script>
+	
 
 </body>
 
 </html>
+
 <?php else: header ("Location:   loginadministrador.php"); endif ?>

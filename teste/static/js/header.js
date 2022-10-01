@@ -30,14 +30,3 @@ function openmodal2(mn){
     modal2.style.display = 'block';
     document.body.style.overflow = 'hidden';
 }
-function conferesenha() {
-    const senha = document.querySelector('input[name=senha]');
-    const confirme_senha = document.querySelector('input[name=confirme_senha]');
-
-    if (confirme_senha.value === senha.value ) {
-        confirme_senha.setCustomValidity('');
-    }else{
-        confirme_senha.setCustomValidity('as senha nao conferem');
-    }
-    
-}

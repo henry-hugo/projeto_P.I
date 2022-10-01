@@ -15,11 +15,16 @@
  $nome = $_POST["nome"];
  $email = $_POST["email"];
  $senha = $_POST ["senha"];
+ $hash = password_hash($senha, PASSWORD_DEFAULT);
  $id = $_POST["id"];
-$ativo = $_POST["ativo"];
+ if(isset($_POST["ativo"])){
+    $ativo =$_POST['ativo'];
+}else{
+    $ativo = 0;
+};
 
 
- $admin = $pdo->query("UPDATE ADMINISTRADOR SET ADM_ATIVO= '$ativo', ADM_NOME= '$nome' , ADM_EMAIL= '$email' , ADM_SENHA= '$senha' WHERE ADM_ID= '$id'")->fetchAll();
+ $admin = $pdo->query("UPDATE ADMINISTRADOR SET ADM_ATIVO= '$ativo', ADM_NOME= '$nome' , ADM_EMAIL= '$email' , ADM_SENHA= '$hash' WHERE ADM_ID= '$id'")->fetchAll();
 
  if ( count($admin) == 0) {
     echo "<script>location.href='../adm.php'</script>";

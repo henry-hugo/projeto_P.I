@@ -2,16 +2,19 @@
  require "../function/verificar.php";
 
 //captura o vaor das variaves
-        if($_POST["nome"] == "" || $_POST["desc"] == "" || $_POST["desc"] == "" || $_POST["nome"] == "" ){
-            header ('Location: ../categoria_atualizar_erro.php');
-        }else{
             $nome = $_POST["nome"];
             $desc = $_POST["desc"];
-            $id = $_POST["id"]; 
+            $id = $_POST["id"];
+            if(isset($_POST["ativo"])){
+                $ativo =$_POST['ativo'];
+            }else{
+                $ativo = 0;
+            }; 
+            echo $ativo;
+    
+         $admin = $pdo->query("UPDATE CATEGORIA SET CATEGORIA_ATIVO= $ativo, CATEGORIA_NOME= '$nome' , CATEGORIA_DESC= '$desc'  WHERE CATEGORIA_ID= $id")->fetchAll();
 
-         $admin = $pdo->query("UPDATE CATEGORIA SET CATEGORIA_NOME= '$nome' , CATEGORIA_DESC= '$desc' WHERE CATEGORIA_ID= '$id'")->fetchAll();
-
-        }if ( count($admin) == 0) {
+        if ( count($admin) == 0) {
              echo "<script>location.href='../categoria.php'</script>";
         } else { 
            echo "erro";

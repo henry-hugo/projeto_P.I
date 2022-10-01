@@ -17,7 +17,7 @@
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
-
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<title>Bravo4Fun</title>
 
 	<link href="css/app.css" rel="stylesheet">
@@ -83,7 +83,7 @@
                 				<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark"><?php echo $nomeuser ;?></span>
               				</a>
 							<div class="dropdown-menu dropdown-menu-end">
-								<a class="dropdown-item" href="logout.php">sair</a>
+								<a class="dropdown-item" href="function/logout.php">sair</a>
 							</div>
 						</li>
 					</ul>
@@ -96,7 +96,7 @@
 					<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
 
 					<div class="row">
-						<div class="col-xl-6 col-xxl-5 d-flex">
+						<div class="col-xl-15 col-xxl-15 d-flex">
 							<div class="w-100">
 								<div class="row">
 									<div class="col-sm-6">
@@ -148,7 +148,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-3 mb-4">0</h1>
+												<h1 class="mt-1 mb-4">0</h1>
 												<div class="mb-0">
 													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i></span>
 													<span class="text-muted"></span>
@@ -170,7 +170,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3"><?php echo $row_ingressos['valor_ingressos'] ;?></h1>
+												<h1 class="mt-1 mb-4"><?php echo $row_ingressos['valor_ingressos'] ;?></h1>
 												<div class="mb-0">
 													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i>  </span>
 													<span class="text-muted"></span>
@@ -198,7 +198,7 @@
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-1">R$ <?php echo $row_ingresso['preco_ingressos'] ;?></h1>
+												<h1 class="mt-1 mb-4">R$ <?php echo $row_ingresso['preco_ingressos'] ;?></h1>
 												<div class="mb-0">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i></span>
 													<span class="text-muted"></span>
@@ -211,34 +211,6 @@
 						</div>
 					</div>
 			</main>
-
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> - <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>Bootstrap Admin Template</strong></a>								&copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
 		</div>
 	</div>
 
