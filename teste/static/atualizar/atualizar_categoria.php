@@ -102,17 +102,17 @@
 			</nav>
 
 			<main class="content">
-            <Form Action="atualizarform_categoria.php" method="POST">
+            <Form class="was-validated" Action="atualizarform_categoria.php" method="POST">
                 <input type="hidden" name="id"  value="<?php echo $id ?>">
-                <br>
-                nome da Categoria : 
-                <input type="text" name="nome" required onchange='campobranco' value="<?php echo $nome ?>">
-                <br>
-                desc categoria : 
-                <input type="text" name="desc" required onchange='campobranco' value="<?php echo $desc ?>">
-                <br>
-				ATIVO :
-				<input type="checkbox" id="ativo" name="ativo" value="<?php echo $ativo ?>" checked>
+
+                <label for="validationText" class="form-label">Nome da Categoria</label> 
+                <input type="text" class="form-control is-invalid" id="validationText" name="nome" required onchange='campobranco' value="<?php echo $nome ?>">
+   
+                <label for="validationTextarea" class="form-label"> descriçao</label> 
+                <Textarea type="Textarea" class="form-control is-invalid" id="validationTextarea" name="desc" required onchange='campobranco'><?php echo $desc ?></Textarea>
+                
+				<label for="customRange2" class="form-label">ATIVO </label>
+				<input  type="range" class="form-range " min="0" max="1" id="ativo" name="ativo" value="1" >
                 <br>
 				<input type="submit" value="Enviar"> 
             </Form>

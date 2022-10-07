@@ -1,10 +1,10 @@
 <?php
   require "function/verificar.php";
   $query_produtos = "SELECT DISTINCT pro.PRODUTO_ATIVO, pro.PRODUTO_ID, pro.PRODUTO_NOME AS pro_PRODUTO_NOME, pro.CATEGORIA_ID, pro.PRODUTO_DESC, pro.PRODUTO_PRECO, pro.PRODUTO_DESCONTO,
-									est.PRODUTO_QTD, img.IMAGEM_ORDEM, img.IMAGEM_URL
+									est.PRODUTO_QTD 
 									FROM PRODUTO pro
 									LEFT JOIN PRODUTO_ESTOQUE AS est ON est.PRODUTO_ID = pro.PRODUTO_ID
-									LEFT JOIN PRODUTO_IMAGEM AS img ON img.PRODUTO_ID = pro.PRODUTO_ID ";
+									";
 
 					$result_produtos = $pdo->prepare($query_produtos);
 					$result_produtos->execute();
@@ -31,6 +31,14 @@
 	<title>Blank Page | AdminKit Demo</title>
 
 	<link href="css/app.css" rel="stylesheet">
+	<style>
+		td img{
+			width:450px;
+			height:450px;
+		}
+		
+		
+	</style>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
@@ -80,6 +88,17 @@
 				<a class="sidebar-toggle js-sidebar-toggle">
 					<i class="hamburger align-self-center"></i>
 				</a>
+				<div  style="text-align:center; padding-left:50%;transform: translate(-50%);" >
+				<?php
+					if (isset($_SESSION['msg'])) {
+					echo ($_SESSION['msg']);
+					unset ($_SESSION['msg']);
+					echo "	<head>
+							<meta http-equiv='refresh' content='5; produto.php'>
+							</head>";
+					}
+				?>
+        		</div>
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
@@ -110,7 +129,7 @@
 				<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-body">	
-						<form action="criaproduto/criaprodutos_imagem.php" method="POST">
+						<form class="was-validated" action="criaproduto/criaprodutos_imagem.php" method="POST">
 						<h3 class="modal-title">Adicionar foto</h3>
 						<label for="exampleFormControlInput1" class="form-label">ordem imagem</label>
 						<input type="number" name="ordem" required onchange='campobranco' class="form-control">
@@ -145,12 +164,13 @@
 					<div class="modal-content">
 					<div class="modal-body">
 					
-				<form action="criaproduto/criaprodutos.php" method="POST">
+				<form class="was-validated" action="criaproduto/criaprodutos.php" method="POST">
 						<h3 class="modal-title" id="staticBackdropLabel">Cadastro de produto <input type="checkbox" id="ativo" name="ativo" value="1" checked></h3>
 						<label for="exampleFormControlInput1" class="form-label">Nome</label>
-						<input type="text" class="form-control" name="nome" required onchange='campobranco' id="categoria_name" placeholder="abc">
+						<input type="text"  class="form-control is-invalid" name="nome" required onchange='campobranco' id="categoria_name" placeholder="abc">
 						<label for="exampleFormControlInput1" class="form-label">Categoria</label>
-						<select class="form-control"  name="categoria">
+						<select class="form-control is-invalid"  name="categoria">
+							<option>option </option>
 						<?php
 							$stmt = $pdo->prepare("SELECT * FROM CATEGORIA");
 							$stmt->execute();
@@ -184,7 +204,7 @@
 							<h3>Quantidade Estoque</h3>
 							</div>
 							<div class="modal-body">
-							<form action="criaproduto/criaprodutos_estoque.php" method="POST">
+							<form class="was-validated" action="criaproduto/criaprodutos_estoque.php" method="POST">
 								<label for="exampleFormControlInput1" class="form-label">Nome Categoria</label>
 								<select name="produtoid" class="form-control">
 									<?php
@@ -217,10 +237,11 @@
 						<th>Categoria</th>
 						<th>Preço</th>
 						<th>desconto</th>
+						<th>Preço Desconto</th>
 						<th>descriçao</th>
 						<th>qtd estoque</th>
-						<th>ordem</th>
-						<th>url imagem</th>
+						
+						<th>imagem</th>
 						<th>ATIVO</th>
 
 						<th><i class="align-middle" data-feather="edit"></i> <span class="align-middle"></span></th>
@@ -250,17 +271,25 @@
 						</td>
 				
 						<td>
-							<?php
-								echo $PRODUTO_PRECO ; 
+							<?php    
+								echo "<span style='color:green;'>R$$PRODUTO_PRECO</span>" ; 
 							?>
 						</td>
 					
 						<td>
 							<?php
-								echo  $PRODUTO_DESCONTO ; 
+								echo "<span style='color:red;'>  $PRODUTO_DESCONTO% </span>"  ; 
 							?>
 						</td>
-				
+						
+						<td>
+							<?php
+								$precoComDesconto = ($PRODUTO_PRECO /100) *($PRODUTO_DESCONTO);
+								$desconto =  $PRODUTO_PRECO - $precoComDesconto ; 
+								echo " <span style='color:yellow;'> R$$desconto</span> "; 
+							?>
+						</td>
+
 						<td>
 							<?php
 								echo  $PRODUTO_DESC ;
@@ -272,13 +301,40 @@
 								echo  $PRODUTO_QTD ;
 							?>
 						</td>
-						<td>
-							<?php
-								echo  $IMAGEM_ORDEM ;
-							?>
-						</td>
+						
 						<td >
-							<img style="width:50px; height:30px;" src="<?php echo  $IMAGEM_URL;?>">       
+							<a type="button"  data-bs-toggle="modal" data-bs-target="#mymodal<?php echo $PRODUTO_ID; ?>"><i style="color: yellow" class="align-middle" data-feather="image"></i> <span class="align-middle"> </a>
+							<div class="modal body" id="mymodal<?php echo $PRODUTO_ID;  $capituraid = $PRODUTO_ID; ?>" tabindex="-1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel">
+								<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-body">
+									
+									<?php
+									
+									$stmt = $pdo->prepare("SELECT * FROM PRODUTO_IMAGEM WHERE PRODUTO_ID = $capituraid");
+									$stmt->execute();
+
+									if($stmt->rowCount() > 0){
+										while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
+											"{$dados['IMAGEM_ID']}";
+											echo "<img  src='{$dados['IMAGEM_URL']}'>";
+											echo "{$dados['IMAGEM_ORDEM']}";
+											echo "<a style='position:relative; left:46%; ' href='atualizar/atualizarform_imagem.php?id={$dados['IMAGEM_ID']} '><i class='align-middle' data-feather='image'></i> <span class='align-middle'></span></a>";
+										}
+									 
+										}
+									?>
+									<br>
+									<br>
+									<br>
+									<div class="modal-footer" >
+											<button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+									</div>
+										</div> 
+									</div>
+								</div>
+								</div>
+							</div>    
 						</td>
 						<td>
 						<?php
@@ -301,7 +357,8 @@
 				<?php
 					}
 				?>
-				</table> 
+				</table>
+				
 			</main>
 
 			

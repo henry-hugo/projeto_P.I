@@ -1,16 +1,6 @@
 
 <?php
-      //dados para conexao ao mysql
-      $mysqlhostname = "144.22.244.104";
-      $mysqlport ="3306";
-      $mysqlusername = "Bravo4Fun";
-      $mysqlpassword = "Bravo4Fun";
-      $mysqldatabase = "Bravo4Fun";
-
-      //mostra a string de conexao ao mysql
-
-      $dsn = 'mysql:host=' . $mysqlhostname . ';dbname=' . $mysqldatabase . ';port' . $mysqlport; 
-      $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
+     require_once '../function/conexao.php';
 
       //captura o vaor das variaves ou receber dados do formulario
      $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -29,8 +19,10 @@
     $img->bindParam(':imgurl',$dados['imgurl'],PDO::PARAM_STR);
     $img->execute();            
 
+    $_SESSION['msg'] =" <div class='alert alert-success'>
+    imagem adicionado com sucesso!
+    </div>";
     header('Location: ../produto.php');
-           exit();
 }else{
 echo 'erro';
 }    

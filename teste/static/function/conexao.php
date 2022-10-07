@@ -1,4 +1,5 @@
 <?php
+            session_start();
             //dados para conexao ao mysql
             $mysqlhostname = "144.22.244.104";
             $mysqlport ="3306";
@@ -7,8 +8,7 @@
             $mysqldatabase = "Bravo4Fun";
             
             //mostra a string de conexao ao mysql
-            session_start();
-            global $pdo;
+            
             try{
             $dsn = 'mysql:host=' . $mysqlhostname . ';dbname=' . $mysqldatabase . ';port' . $mysqlport; 
             $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
@@ -17,3 +17,5 @@
                 echo "erro : ".$e->getMessage();
                 exit;
             }
+            
+            global $pdo;

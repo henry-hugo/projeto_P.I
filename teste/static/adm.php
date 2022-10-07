@@ -72,6 +72,17 @@
 				<a class="sidebar-toggle js-sidebar-toggle">
           			<i class="hamburger align-self-center"></i>
         		</a>
+				<div  style="text-align:center; padding-left:50%;transform: translate(-50%);" >
+				<?php
+					if (isset($_SESSION['msg'])) {
+					echo ($_SESSION['msg']);
+					unset ($_SESSION['msg']);
+					echo "	<head>
+							<meta http-equiv='refresh' content='5; adm.php'>
+							</head>";
+					}
+				?>
+        		</div>
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
@@ -104,7 +115,7 @@
 							<div class="modal-header">
 							</div>
 							<div class="modal-body">
-							<form action="criaprocesso/criarprocessamento.php" method="POST">
+							<form class="was-validated" action="criaprocesso/criarprocessamento.php" method="POST">
 							<h3 class="modal-title" id="staticBackdropLabel">Cadastro de Administrador <input type="checkbox" id="ativo" name="ativo" value="1" checked></h3> 
 								<div class="mb-3">
 									<label for="exampleFormControlInput1" class="form-label">Nome</label>
@@ -189,7 +200,7 @@
 						<a href="atualizar/atualizar_adm.php?id=<?php echo $linha["ADM_ID"] ?>"><i class="align-middle" style="color:#fff;" data-feather="edit"></i> <span class="align-middle"></span></a>
 					</td>
 					<td>
-						<a href="../excluirform_adm.php?id=<?php echo $linha["ADM_ID"] ?>"><i class="align-middle" style="color:black;" data-feather="trash-2"></i> <span class="align-middle"></span></a>
+						<a href="excluirform_adm.php"><i class="align-middle" style="color:black;" data-feather="trash-2"></i> <span class="align-middle"></span></a>
 					</td>        
 				</tr>
 			<?php 

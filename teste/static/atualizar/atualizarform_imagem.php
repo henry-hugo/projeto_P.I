@@ -5,25 +5,12 @@ require '../function/verificar.php';
 $id = $_GET["id"];
 
             //realiza uma query sql para buscar o adm que tem o email e a senha passado 
-            $admin = $pdo->query("SELECT * FROM PRODUTO WHERE PRODUTO_ID=" . $id)->fetch();
-            $admin1 = $pdo->query("SELECT * FROM PRODUTO_ESTOQUE WHERE PRODUTO_ID=" . $id)->fetch();
-            //$admin2 = $pdo->query("SELECT * FROM PRODUTO_IMAGEM WHERE PRODUTO_ID=" . $id)->fetch();
+            $admin = $pdo->query("SELECT * FROM PRODUTO_IMAGEM WHERE IMAGEM_ID=" . $id)->fetch();
 
             //se o retorna for vazio 0 , entao a senha ou email estao incorretos
 
-            $nome = $admin["PRODUTO_NOME"];
-            $preco = $admin["PRODUTO_PRECO"];
-            $desconto = $admin["PRODUTO_DESCONTO"];
-            $desc = $admin["PRODUTO_DESC"];
-            $ativo = $admin["PRODUTO_ATIVO"];
-			if(isset($admin1["PRODUTO_QTD"])) {
-				$quantidade = $admin1["PRODUTO_QTD"];
-			}else{
-				$quantidade = '0';
-			}
-            
-            //$imagem = $admin2["IMAGEM_URL"];
-            //$imagem_ordem = $admin2["IMAGEM_ORDEM"];
+            $imagem_url = $admin['IMAGEM_URL'];
+            $imagem_ordem = $admin['IMAGEM_ORDEM']; 
 
             if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
 
@@ -116,39 +103,15 @@ $id = $_GET["id"];
 			</nav>
 
 			<main class="content">
-      <Form class="was-validated" Action="atualizar_produto.php" method="POST">
-                <input type="hidden" name="id" value="<?php echo $id ?>">
-                <label for="exampleFormControlInput1"  class="form-label">NOME</label>
-                <input type="text" name="nome" class="form-control"  required onchange='campobranco' value="<?php echo $nome ?>">
-                <label for="exampleFormControlInput1" class="form-label">PREÇO</label>
-                <input type="text" name="preco" class="form-control" required onchange='campobranco' value="<?php echo $preco ?>">
-                <label for="exampleFormControlInput1" class="form-label">CATEGORIA</label>
-                <select class="form-control" name="categoria">
-					<option>OPTION</option>
-                  <?php
-                    $stmt = $pdo->prepare("SELECT * FROM CATEGORIA");
-                    $stmt->execute();
-
-                    if($stmt->rowCount() > 0){
-                      while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
-                        echo "<option value='{$dados['CATEGORIA_ID']}'>{$dados['CATEGORIA_NOME']}</option>";
-                      }
-                    }
-                  ?>
-                </select>
-                <label for="exampleFormControlInput1" class="form-label">DESCONTO</label>
-                <input type="text" name="desconto" class="form-control" required onchange='campobranco' value="<?php echo $desconto ?>">
-                <label for="exampleFormControlInput1" class="form-label">DESCRIÇÃO</label>
-                <input type="text" name="desc" class="form-control" required onchange='campobranco' value="<?php echo $desc ?>">
-                <label for="exampleFormControlInput1" class="form-label">QUANTIDADE</label>
-                <input type="number" name="quantidade" class="form-control" required onchange='campobranco' value="<?php echo $quantidade ?>">
-                <label for="exampleFormControlInput1"  class="form-label">IMAGEM URL</label>
-				<br>
-                <label for="exampleFormControlInput1" class="form-label">PRODUTO ATIVO</label>
-                <input type="checkbox" id="ativo" name="ativo"   value="1" checked>
-                <BR>
-                <input type="submit" value="Enviar"> 
-            </Form>
+                <Form class="was-validated" Action="atualizar_imagem.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                    <label for="exampleFormControlInput1" class="form-label">IMAGEM ORDEM</label>
+                    <input type="number" name="imagem_ordem"  required onchange='campobranco' value="<?php echo $imagem_ordem ?>">
+                    <label for="exampleFormControlInput1"  class="form-label">IMAGEM URL</label>
+                    <input type="url" name="imagem_url" class="form-label"  required onchange='campobranco' value="<?php echo $imagem_url ?>">
+                    <BR>
+                    <input type="submit" value="Enviar"> 
+                </Form>
 			</main>
 
 			
@@ -162,4 +125,3 @@ $id = $_GET["id"];
 
 </html>
 <?php else: header ("Location:../loginadministrador.php"); endif ?>
-

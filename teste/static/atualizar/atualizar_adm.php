@@ -103,7 +103,7 @@
 			</nav>
 
 			<main class="content">
-                <Form Action="atualizarform_adm.php" method="POST">
+                <Form class="was-validated" Action="atualizarform_adm.php" method="POST">
                     <input type="hidden" name="id"  value="<?php echo $id ?>">
                     
                     <label for="exampleFormControlInput1" class="form-label">NOME</label>

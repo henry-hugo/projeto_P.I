@@ -3,4 +3,7 @@
 session_start();
 unset($_SESSION['iduser']);
 
-header('Location: ../loginadministrador.php');
+$_SESSION['msg'] =" <div class='alert alert-dark'>
+                    ADMINISTRADOR desconectado!!
+                    </div>";
+                    header('Location: ../loginadministrador.php');

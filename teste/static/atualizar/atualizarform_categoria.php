@@ -9,13 +9,16 @@
                 $ativo =$_POST['ativo'];
             }else{
                 $ativo = 0;
-            }; 
-            echo $ativo;
-    
+            };
+            
+     
          $admin = $pdo->query("UPDATE CATEGORIA SET CATEGORIA_ATIVO= $ativo, CATEGORIA_NOME= '$nome' , CATEGORIA_DESC= '$desc'  WHERE CATEGORIA_ID= $id")->fetchAll();
 
         if ( count($admin) == 0) {
-             echo "<script>location.href='../categoria.php'</script>";
+            $_SESSION['msg'] =" <div class='alert alert-success'>
+                                Categoria atualizada com sucesso!
+                                </div>";
+                    header('Location: ../categoria.php');
         } else { 
            echo "erro";
         }

@@ -23,6 +23,8 @@
 
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -72,6 +74,17 @@
 				<a class="sidebar-toggle js-sidebar-toggle">
           			<i class="hamburger align-self-center"></i>
         		</a>
+				<div  style="text-align:center; padding-left:50%;transform: translate(-50%);" >
+				<?php
+					if (isset($_SESSION['msg'])) {
+					echo ($_SESSION['msg']);
+					unset ($_SESSION['msg']);
+					echo "	<head>
+							<meta http-equiv='refresh' content='5; categoria.php'>
+							</head>";
+					}
+				?>
+        		</div>
 
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
@@ -98,22 +111,22 @@
 						<i class="align-middle" data-feather="plus"></i> <span class="align-middle"> Nova Categoria</span>
 					</button>
 					<!-- Modal -->
-					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal fade"  id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 						<div class="modal-dialog">
 						<div class="modal-content">
 							
 							<div class="modal-body">
-							<form action="cadastro/cadastro_categoria.php" method="POST">
+							<form class="was-validated" action="cadastro/cadastro_categoria.php" method="POST">
 							<div class="modal-header">
 							<h3 class="modal-title" id="staticBackdropLabel">Cadastro de Categoria </h3>
 							</div>							 
 								<div class="mb-3">
-									<label for="exampleFormControlInput1" class="form-label">Nome da Categoria</label>
-									<input type="text" class="form-control" name="nome" size=15 required onchange='campobranco();' id="categoria_name" placeholder="TRAP">
+									<label for="validationText" class="form-label">Nome da Categoria</label>
+									<input type="text" class="form-control is-invalid" id="validationText" name="nome" size=15 required onchange='campobranco();' id="categoria_name" placeholder="TRAP">
 								  </div>
 								  <div class="mb-3">
-									<label for="exampleFormControlTextarea1" class="form-label"> descriçao</label>
-									<textarea class="form-control" name="descricao"  id="descricao" rows="3"></textarea>
+									<label for="validationTextarea" class="form-label"> descriçao</label>
+									<textarea class="form-control is-invalid" id="validationTextarea" required name="descricao"  id="descricao" rows="3"></textarea>
 								  </div>
 								</div>
 								<div class="modal-footer">
@@ -188,6 +201,7 @@
 	</div>
 	
 	<script src="js/app.js"></script>
+	<script src="js/teste.js"></script>
 	
 
 </body>

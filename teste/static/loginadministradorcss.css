@@ -2,10 +2,13 @@
     border: 0;
     box-sizing: border-box;
 }
-body {
+body{
    font-family: Verdana, sans-serif;
-   background-color: #FFC0CB;
+   background-color:#FFC0CB;
    color: black;
+}
+input{
+    max-width: 300px;
 }
 
 img {
@@ -43,7 +46,7 @@ img {
 .lembrarme, #lembrarme {
     display: inline;
     padding-top: 30px;
-}
+}   
 
 .enviar{
     width: 150px;
@@ -57,5 +60,5 @@ a{
 }
 .enviar:hover{
     color: #00CED1;
-    background-color: #FFC0CB;   
+    background-color: #FFC0CB;      
 }

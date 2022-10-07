@@ -1,5 +1,8 @@
 <?php
- require "../function/verificar.php";
+ require_once "../function/verificar.php";
+
+ //$nome = $_POST["nome"];
+// $desc = $_POST["descricao"];
 
 //captura o vaor das variaves
         if($_POST["nome"] == "" || $_POST["descricao"] == "" || $_POST["descricao"] == "" || $_POST["nome"] == "" ){
@@ -17,9 +20,15 @@
         $status = $cmd->execute();
         }
         if($status){
-            header ('Location: ../categoria.php');
+            $_SESSION['msg'] =" <div class='alert alert-success'>
+                                Categoria cadastrada!
+                                </div>";
+                    header('Location: ../categoria.php');
         } else {
-            echo "ocorreu um erro ";
+            $_SESSION['msg'] =" <div class='alert alert-danger'>
+                                Categoria não cadastrada!
+                                </div>";
+            header('Location: ../categoria.php');
         }
 
         ?>

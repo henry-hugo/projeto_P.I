@@ -1,17 +1,6 @@
             <?php
-            //dados para conexao ao mysql
-            $mysqlhostname = "144.22.244.104";
-            $mysqlport ="3306";
-            $mysqlusername = "Bravo4Fun";
-            $mysqlpassword = "Bravo4Fun";
-            $mysqldatabase = "Bravo4Fun";
-            
-            //mostra a string de conexao ao mysql
+            require_once "function/conexao.php";
             session_start();
-            global $pdo;
-            
-            $dsn = 'mysql:host=' . $mysqlhostname . ';dbname=' . $mysqldatabase . ';port' . $mysqlport; 
-            $pdo = new PDO($dsn, $mysqlusername, $mysqlpassword);
 
             if(isset($_POST['email'])){
                 $email = ($_POST['email']);
@@ -35,12 +24,21 @@
                                     header('Location: index.php');
                                 exit();
                     }else{
+                        $_SESSION['msg'] =" <div class='alert alert-danger'>
+                                            login ou senha incorreta
+                                            </div>";
                         header('Location: loginadministrador.php');
                     }
                     }else{
+                        $_SESSION['msg'] =" <div class='alert alert-danger'>
+                                            login ou senha incorreta
+                                            </div>";
                         header('Location: loginadministrador.php');
                     }
                 }else{
+                    $_SESSION['msg'] =" <div class='alert alert-danger'>
+                                            login ou senha incorreta
+                                            </div>";
                     header('Location: loginadministrador.php');
             }
         }
