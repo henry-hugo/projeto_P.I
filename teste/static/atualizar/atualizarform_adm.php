@@ -13,7 +13,17 @@ require "../function/conexao.php";
     $ativo = 0;
 };
 
+$query_adm_pes = "SELECT ADM_ID FROM ADMINISTRADOR WHERE ADM_EMAIL= :email LIMIT 1";
+$resultado_adm =$pdo->prepare($query_adm_pes);
+$resultado_adm->bindParam(':email', $_POST['email'],PDO::PARAM_STR);
+$resultado_adm->execute();
 
+if(($resultado_adm) and ($resultado_adm->rowCount() != 0)){
+    $_SESSION['msg'] =" <div class='alert alert-warning'>
+                        email ja existe !!
+                        </div>";
+                        header('Location: ../adm.php');
+}else{
  $admin = $pdo->query("UPDATE ADMINISTRADOR SET ADM_ATIVO= '$ativo', ADM_NOME= '$nome' , ADM_EMAIL= '$email' , ADM_SENHA= '$hash' WHERE ADM_ID= '$id'")->fetchAll();
 
  if ( count($admin) == 0) {
@@ -23,5 +33,6 @@ require "../function/conexao.php";
     header('Location: ../adm.php');
 } else { 
     echo "erro";
+}
 }
 ?>

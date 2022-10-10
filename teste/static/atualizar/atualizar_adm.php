@@ -113,7 +113,7 @@
                     <input type="email" name="email" class="form-control" required onchange='campobranco' value="<?php echo $email ?>">
                     
                     <label for="exampleFormControlInput1" class="form-label">SENHA</label>
-                    <input type="text" name="senha" class="form-control" required onchange='campobranco' value="<?php echo $senha ?>">
+                    <input type="text" name="senha" class="form-control" required onchange='campobranco' value="0">
                     
                     <label for="exampleFormControlInput1" class="form-label">ATIVO</label>
                     <input type="checkbox" id="ativo" name="ativo"  value="1" checked>

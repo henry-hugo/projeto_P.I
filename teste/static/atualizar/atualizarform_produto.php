@@ -124,7 +124,6 @@ $id = $_GET["id"];
                 <input type="text" name="preco" class="form-control" required onchange='campobranco' value="<?php echo $preco ?>">
                 <label for="exampleFormControlInput1" class="form-label">CATEGORIA</label>
                 <select class="form-control" name="categoria">
-					<option>OPTION</option>
                   <?php
                     $stmt = $pdo->prepare("SELECT * FROM CATEGORIA");
                     $stmt->execute();
@@ -137,12 +136,11 @@ $id = $_GET["id"];
                   ?>
                 </select>
                 <label for="exampleFormControlInput1" class="form-label">DESCONTO</label>
-                <input type="text" name="desconto" class="form-control" required onchange='campobranco' value="<?php echo $desconto ?>">
+                <input type="number" name="desconto" oninput="validity.valid||(value='');" min="0" max="100"  class="form-control" required onchange='campobranco' value="<?php echo $desconto ?>">
                 <label for="exampleFormControlInput1" class="form-label">DESCRIÇÃO</label>
                 <input type="text" name="desc" class="form-control" required onchange='campobranco' value="<?php echo $desc ?>">
                 <label for="exampleFormControlInput1" class="form-label">QUANTIDADE</label>
-                <input type="number" name="quantidade" class="form-control" required onchange='campobranco' value="<?php echo $quantidade ?>">
-                <label for="exampleFormControlInput1"  class="form-label">IMAGEM URL</label>
+                <input type="number" name="quantidade" oninput="validity.valid||(value='');" min="1" max="2000000000" class="form-control" required onchange='campobranco' value="<?php echo $quantidade ?>">
 				<br>
                 <label for="exampleFormControlInput1" class="form-label">PRODUTO ATIVO</label>
                 <input type="checkbox" id="ativo" name="ativo"   value="1" checked>

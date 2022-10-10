@@ -74,14 +74,14 @@
 				<a class="sidebar-toggle js-sidebar-toggle">
           			<i class="hamburger align-self-center"></i>
         		</a>
-				<div  style="text-align:center; padding-left:50%;transform: translate(-50%);" >
+				<div id="msg" style="text-align:center; padding-left:50%;transform: translate(-50%);" >
 				<?php
 					if (isset($_SESSION['msg'])) {
 					echo ($_SESSION['msg']);
 					unset ($_SESSION['msg']);
-					echo "	<head>
+					/*echo "	<head>
 							<meta http-equiv='refresh' content='5; categoria.php'>
-							</head>";
+							</head>";*/
 					}
 				?>
         		</div>
@@ -202,6 +202,7 @@
 	
 	<script src="js/app.js"></script>
 	<script src="js/teste.js"></script>
+	<script src="js/teste2.js"></script>
 	
 
 </body>

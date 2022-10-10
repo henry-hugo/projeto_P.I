@@ -1,6 +1,4 @@
 
-
-
     const senha = document.querySelector('input[name=senha]');
     const confirme_senha = document.querySelector('input[name=confirme_senha]');
 

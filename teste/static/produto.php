@@ -88,14 +88,14 @@
 				<a class="sidebar-toggle js-sidebar-toggle">
 					<i class="hamburger align-self-center"></i>
 				</a>
-				<div  style="text-align:center; padding-left:50%;transform: translate(-50%);" >
+				<div id="msg"  style="text-align:center; padding-left:50%;transform: translate(-50%);" >
 				<?php
 					if (isset($_SESSION['msg'])) {
 					echo ($_SESSION['msg']);
 					unset ($_SESSION['msg']);
-					echo "	<head>
+					/*echo "	<head>
 							<meta http-equiv='refresh' content='5; produto.php'>
-							</head>";
+							</head>";*/
 					}
 				?>
         		</div>
@@ -132,10 +132,10 @@
 						<form class="was-validated" action="criaproduto/criaprodutos_imagem.php" method="POST">
 						<h3 class="modal-title">Adicionar foto</h3>
 						<label for="exampleFormControlInput1" class="form-label">ordem imagem</label>
-						<input type="number" name="ordem" required onchange='campobranco' class="form-control">
+						<input type="number" name="ordem" oninput="validity.valid||(value='');" min="1" required onchange='campobranco' class="form-control">
 						<label for="exampleFormControlInput1" class="form-label">produto</label>
-						<select name="produtoid" class="form-control">
-						<option>option</option>
+						<select name="produtoid"  class="form-select is-invalid"  required aria-label="select example">
+						
 						<?php
 					
 							$stmt = $pdo->prepare("SELECT * FROM PRODUTO");
@@ -169,8 +169,8 @@
 						<label for="exampleFormControlInput1" class="form-label">Nome</label>
 						<input type="text"  class="form-control is-invalid" name="nome" required onchange='campobranco' id="categoria_name" placeholder="abc">
 						<label for="exampleFormControlInput1" class="form-label">Categoria</label>
-						<select class="form-control is-invalid"  name="categoria">
-							<option>option </option>
+						<select class="form-select is-invalid"  required aria-label="select example"  name="categoria">
+							
 						<?php
 							$stmt = $pdo->prepare("SELECT * FROM CATEGORIA");
 							$stmt->execute();
@@ -185,9 +185,9 @@
 						<label for="exampleFormControlInput1" class="form-label">Descrição</label> 
 						<input type="text" class="form-control" name="descricao" required onchange='campobranco'>
 						<label for="exampleFormControlInput1" class="form-label">Preço</label>
-						<input type="text" class="form-control" name="preco" required onchange='campobranco'>
+						<input type="number" class="form-control" oninput="validity.valid||(value='');" min="1" name="preco" required onchange='campobranco'>
 						<label for="exampleFormControlInput1" class="form-label">Desconto</label>
-						<input type="text" class="form-control" name="desconto" required onchange='campobranco'>
+						<input type="number" class="form-control" oninput="validity.valid||(value='');" min="0" max="100" name="desconto" required onchange='campobranco'>
 						<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 									<input type="submit" value="enviar" class="btn btn-primary">
@@ -206,7 +206,8 @@
 							<div class="modal-body">
 							<form class="was-validated" action="criaproduto/criaprodutos_estoque.php" method="POST">
 								<label for="exampleFormControlInput1" class="form-label">Nome Categoria</label>
-								<select name="produtoid" class="form-control">
+								<select name="produtoid" class="form-select">
+									
 									<?php
 									
 										$stmt = $pdo->prepare("SELECT * FROM PRODUTO");
@@ -220,7 +221,7 @@
 										?>
 									</select>
 									<label for="exampleFormControlInput1"  class="form-label">Quantidade Estoque </label>
-									<input type="number" class="form-control" min="1" max="2000000000" name="quantidade" required onchange='campobranco' >
+									<input type="number" class="form-control" oninput="validity.valid||(value='');" min="1" max="2000000000" name="quantidade" required onchange='campobranco' >
 									<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 									<input type="submit" value="enviar" class="btn btn-primary">
@@ -366,6 +367,7 @@
 	</div>
 
 	<script src="js/app.js"></script>
+	<script src="js/teste2.js"></script>
 
 </body>
 

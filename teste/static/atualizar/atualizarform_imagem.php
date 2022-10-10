@@ -106,7 +106,7 @@ $id = $_GET["id"];
                 <Form class="was-validated" Action="atualizar_imagem.php" method="POST">
                     <input type="hidden" name="id" value="<?php echo $id ?>">
                     <label for="exampleFormControlInput1" class="form-label">IMAGEM ORDEM</label>
-                    <input type="number" name="imagem_ordem"  required onchange='campobranco' value="<?php echo $imagem_ordem ?>">
+                    <input type="number" name="imagem_ordem" oninput="validity.valid||(value='');" min="1"  required onchange='campobranco' value="<?php echo $imagem_ordem ?>">
                     <label for="exampleFormControlInput1"  class="form-label">IMAGEM URL</label>
                     <input type="url" name="imagem_url" class="form-label"  required onchange='campobranco' value="<?php echo $imagem_url ?>">
                     <BR>
