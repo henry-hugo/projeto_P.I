@@ -1,4 +1,5 @@
 <?php
+require '../function/verificar.php';
  //dados para conexao ao mysql
  $mysqlhostname = "144.22.244.104";
  $mysqlport ="3306";
@@ -27,4 +28,7 @@
 } else { 
     echo "erro";
 }
+
+if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
+    <?php else: header ("Location:../../loginadministrador.php"); endif?>
 ?>

@@ -135,11 +135,11 @@ $id = $_GET["id"];
                     }
                   ?>
                 </select>
-                <label for="exampleFormControlInput1" class="form-label">DESCONTO</label>
+                <label for="exampleFormControlInput1" class="form-label">DESCONTO<i style="font-size:12px;">(de 0% á 100%)</i></label>
                 <input type="number" name="desconto" oninput="validity.valid||(value='');" min="0" max="100"  class="form-control" required onchange='campobranco' value="<?php echo $desconto ?>">
                 <label for="exampleFormControlInput1" class="form-label">DESCRIÇÃO</label>
-                <input type="text" name="desc" class="form-control" required onchange='campobranco' value="<?php echo $desc ?>">
-                <label for="exampleFormControlInput1" class="form-label">QUANTIDADE</label>
+                <textarea name="desc" class="form-control" required onchange='campobranco'><?php echo $desc ?></textarea>
+                <label for="exampleFormControlInput1" class="form-label">QUANTIDADE<i style="font-size:12px;">(de 1 á 2000000000)</i></label>
                 <input type="number" name="quantidade" oninput="validity.valid||(value='');" min="1" max="2000000000" class="form-control" required onchange='campobranco' value="<?php echo $quantidade ?>">
 				<br>
                 <label for="exampleFormControlInput1" class="form-label">PRODUTO ATIVO</label>

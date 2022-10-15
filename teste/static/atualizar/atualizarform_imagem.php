@@ -2,6 +2,7 @@
 
 require '../function/verificar.php';
 
+
 $id = $_GET["id"];
 
             //realiza uma query sql para buscar o adm que tem o email e a senha passado 
@@ -9,8 +10,24 @@ $id = $_GET["id"];
 
             //se o retorna for vazio 0 , entao a senha ou email estao incorretos
 
-            $imagem_url = $admin['IMAGEM_URL'];
-            $imagem_ordem = $admin['IMAGEM_ORDEM']; 
+            if(!empty($imagem_url = $admin['IMAGEM_URL'])){
+				$imagem_url = $admin['IMAGEM_URL'];
+			}else{
+				$_SESSION['msg'] =" <div class='alert alert-primary'>
+									NAO TEM NENHUMA IMAGEM!!
+									</div>";
+									header('Location: ../produto.php');
+			} 
+			
+            if(!empty($imagem_ordem = $admin['IMAGEM_ORDEM'])){
+				$imagem_ordem = $admin['IMAGEM_ORDEM'];
+			}else{
+				$_SESSION['msg'] =" <div class='alert alert-primary'>
+									NAO TEM NENHUMA IMAGEM!!
+									</div>";
+									header('Location: ../produto.php');
+			} 
+             
 
             if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
 
@@ -35,6 +52,15 @@ $id = $_GET["id"];
 
 	<link href="../css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<style>
+		img{
+			width:200px;
+			height:200px;
+			padding: 10px;
+		}
+		
+		
+	</style>
 </head>
 
 <body>
@@ -103,15 +129,38 @@ $id = $_GET["id"];
 			</nav>
 
 			<main class="content">
-                <Form class="was-validated" Action="atualizar_imagem.php" method="POST">
-                    <input type="hidden" name="id" value="<?php echo $id ?>">
+			
+			<?php
+										
+										$stmt = $pdo->prepare("SELECT * FROM PRODUTO_IMAGEM WHERE PRODUTO_ID = $id ORDER BY IMAGEM_ORDEM");
+										$stmt->execute();
+
+										if($stmt->rowCount() > 0){
+											while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
+											
+												echo "<img  src='{$dados['IMAGEM_URL']}'><br>";
+												echo "<Form class='was-validated' Action='atualizar_imagem.php' method='POST'>";
+												echo "<input type='hidden' name='id' value='{$dados['IMAGEM_ID']}'>";
+												echo "<input type='number' name='imagem_ordem' oninput='validity.valid||(value='');' min='1'  value='{$dados['IMAGEM_ORDEM']}' style='width:40px;' >";
+												echo "<input type='url' name='imagem_url' class='form-label'   value='{$dados['IMAGEM_URL']}'>";												
+												
+												echo "<button type='submit'><i class='align-middle' data-feather='image'></i> <span class='align-middle'></span></button>";
+												echo "</form>";
+											}
+												
+											}
+										?>
+
+
+                <!--<Form class="was-validated" Action="atualizar_imagem.php" method="POST">
+                    <input type="hidden" name="id" value="">
                     <label for="exampleFormControlInput1" class="form-label">IMAGEM ORDEM</label>
                     <input type="number" name="imagem_ordem" oninput="validity.valid||(value='');" min="1"  required onchange='campobranco' value="<?php echo $imagem_ordem ?>">
                     <label for="exampleFormControlInput1"  class="form-label">IMAGEM URL</label>
-                    <input type="url" name="imagem_url" class="form-label"  required onchange='campobranco' value="<?php echo $imagem_url ?>">
+                    <input type="url" name="imagem_url" class="form-label"  required onchange='campobranco' value="">
                     <BR>
                     <input type="submit" value="Enviar"> 
-                </Form>
+                </Form>-->
 			</main>
 
 			

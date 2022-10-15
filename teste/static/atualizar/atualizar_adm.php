@@ -110,7 +110,7 @@
                     <input type="text" name="nome" class="form-control" required onchange='campobranco' value="<?php echo $nome ?>">
                     
                     <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
-                    <input type="email" name="email" class="form-control" required onchange='campobranco' value="<?php echo $email ?>">
+                    <input type="email" name="email" class="form-control" required onchange='campobranco' value="<?php echo $email ?>" readonly>
                     
                     <label for="exampleFormControlInput1" class="form-label">SENHA</label>
                     <input type="text" name="senha" class="form-control" required onchange='campobranco' value="0">

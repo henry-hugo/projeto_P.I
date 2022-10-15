@@ -33,11 +33,11 @@
         <form id="formulario" class="row g-3 was-validated"  method="POST" action="autentificacao_adm.php">
             <div class="row g-3">
                 <label for="validationFormEmail2" class="form-label" class="email">E-mail:</label>
-                <input class="form-control is-invalid" id="validationFormEmail2" class="caixaemail" type="email" name="email"   id="email" placeholder="bravo4fun@bravo4fun.com" required>
+                <input class="form-control is-invalid" style="color:pink;" id="validationFormEmail2" class="caixaemail" type="email" name="email"   id="email" placeholder="bravo4fun@bravo4fun.com" required>
             </div>
             <div class="row g-3">
                 <label for="validationFormPassword1" class="form-label" class="senha">Senha:</label>
-                <input class="form-control is-invalid" id="validationFormPassword1" class="caixasenha" type="password" name="senha"   id="senha" placeholder="Amand@123" required>
+                <input class="form-control is-invalid" style="color:pink;" id="validationFormPassword1" class="caixasenha" type="password" name="senha"   id="senha" placeholder="Amand@123" required>
             </div>
            
             <input class="g-recaptcha" data-sitekey="6Lfov2oiAAAAAKRxoaoWNgSQxs3OSebaT5cPoQIT" data-callback="onSubmit" type="submit" value="Enviar" >  

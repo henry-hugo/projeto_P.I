@@ -1,14 +1,34 @@
 <?php
   require "function/verificar.php";
-  $query_produtos = "SELECT DISTINCT pro.PRODUTO_ATIVO, pro.PRODUTO_ID, pro.PRODUTO_NOME AS pro_PRODUTO_NOME, pro.CATEGORIA_ID, pro.PRODUTO_DESC, pro.PRODUTO_PRECO, pro.PRODUTO_DESCONTO,
-									est.PRODUTO_QTD 
-									FROM PRODUTO pro
-									LEFT JOIN PRODUTO_ESTOQUE AS est ON est.PRODUTO_ID = pro.PRODUTO_ID
-									";
+  $_POST['produto'] = $_POST['produto']  ?? '' ; 
+if($_POST['produto'] == ''){
+	$query_produtos = "SELECT DISTINCT pro.PRODUTO_ATIVO, pro.PRODUTO_ID, pro.PRODUTO_NOME AS pro_PRODUTO_NOME, pro.CATEGORIA_ID, pro.PRODUTO_DESC, pro.PRODUTO_PRECO, pro.PRODUTO_DESCONTO,
+	est.PRODUTO_QTD 
+	FROM PRODUTO pro
+	LEFT JOIN PRODUTO_ESTOQUE AS est ON est.PRODUTO_ID = pro.PRODUTO_ID
+	 ";
 
-					$result_produtos = $pdo->prepare($query_produtos);
-					$result_produtos->execute();
+	$result_produtos = $pdo->prepare($query_produtos);
+	$result_produtos->execute();
+}if($_POST['produto'] == '0'){
+	$query_produtos = "SELECT DISTINCT pro.PRODUTO_ATIVO, pro.PRODUTO_ID, pro.PRODUTO_NOME AS pro_PRODUTO_NOME, pro.CATEGORIA_ID, pro.PRODUTO_DESC, pro.PRODUTO_PRECO, pro.PRODUTO_DESCONTO,
+	est.PRODUTO_QTD 
+	FROM PRODUTO pro
+	LEFT JOIN PRODUTO_ESTOQUE AS est ON est.PRODUTO_ID = pro.PRODUTO_ID
+	WHERE PRODUTO_ATIVO = 0 ";
 
+	$result_produtos = $pdo->prepare($query_produtos);
+	$result_produtos->execute();
+}if($_POST['produto'] == '1'){
+	$query_produtos = "SELECT DISTINCT pro.PRODUTO_ATIVO, pro.PRODUTO_ID, pro.PRODUTO_NOME AS pro_PRODUTO_NOME, pro.CATEGORIA_ID, pro.PRODUTO_DESC, pro.PRODUTO_PRECO, pro.PRODUTO_DESCONTO,
+	est.PRODUTO_QTD 
+	FROM PRODUTO pro
+	LEFT JOIN PRODUTO_ESTOQUE AS est ON est.PRODUTO_ID = pro.PRODUTO_ID
+	WHERE PRODUTO_ATIVO = 1 ";
+
+	$result_produtos = $pdo->prepare($query_produtos);
+	$result_produtos->execute();
+}
 					
   if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
   <!--setcookie( 'nome', )-->
@@ -25,6 +45,9 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-blank.html" />
 
@@ -33,8 +56,9 @@
 	<link href="css/app.css" rel="stylesheet">
 	<style>
 		td img{
-			width:450px;
-			height:450px;
+			width:200px;
+			height:200px;
+			padding: 10px;
 		}
 		
 		
@@ -124,7 +148,36 @@
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 						<i class="align-middle" data-feather="plus"></i> <span class="align-middle"> Adicionar Estoque</span>
 				</button>
+				
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"><i class="align-middle" data-feather="plus"></i> <span class="align-middle"> Adicionar Fotos</button>
+				<div style="float:right;" >
+						<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+							<span class="text-dark">filtro</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-end">
+							
+								<form action="" id="FormId" method="post" style="text-align:center;">
+									<div > 
+										<input type="radio" onclick="document.getElementById('FormId').submit();"  name="produto" id="" value="">
+										<label for="todos" class="form-label" ><span style="color:blue;">TODOS</span></label>
+									</div>
+									<div>
+										<input type="radio" onclick="document.getElementById('FormId').submit();" name="produto" id="" value="1">
+										<label for="ativo" class="form-label"><span style="color:blue;">ATIVO</span></label>
+									</div>
+									<div>
+										<input type="radio" onclick="document.getElementById('FormId').submit();" name="produto" id="" value="0">
+										<label for="desativo" class="form-label"><span style="color:blue;">DESATIVO</span></label>
+									</div>
+								</form>
+							
+						</div>
+					</div>
+				
+				<div >
+					<input class="form-control" id="myInput" type="search"  placeholder="Procurar.." style="float:right; width:300px;">
+				</div>
+				
 				<div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel">
 				<div class="modal-dialog">
 				<div class="modal-content">
@@ -183,7 +236,7 @@
 						?>
 						</select>
 						<label for="exampleFormControlInput1" class="form-label">Descrição</label> 
-						<input type="text" class="form-control" name="descricao" required onchange='campobranco'>
+						<textarea class="form-control" name="descricao" required onchange='campobranco'></textarea>
 						<label for="exampleFormControlInput1" class="form-label">Preço</label>
 						<input type="number" class="form-control" oninput="validity.valid||(value='');" min="1" name="preco" required onchange='campobranco'>
 						<label for="exampleFormControlInput1" class="form-label">Desconto</label>
@@ -231,6 +284,8 @@
 						</div>
 						</div>
 					</div>
+					<div>
+
 				<table class="table table-dark table-striped">
 					<tr>
 						<th>Id</th>
@@ -241,7 +296,6 @@
 						<th>Preço Desconto</th>
 						<th>descriçao</th>
 						<th>qtd estoque</th>
-						
 						<th>imagem</th>
 						<th>ATIVO</th>
 
@@ -253,108 +307,79 @@
 					//  var_dump($row_produto);
 						extract($row_produto);
 					?>
-					<tr>
-						<td>
-							<?php
-								echo $PRODUTO_ID;
-							?>
-						</td>
-						<td>
-							<?php   
-								echo $pro_PRODUTO_NOME; 
-							?>
-						</td>
-					
-						<td>
-							<?php    
-								echo  $CATEGORIA_ID ; 
-							?>
-						</td>
-				
-						<td>
-							<?php    
-								echo "<span style='color:green;'>R$$PRODUTO_PRECO</span>" ; 
-							?>
-						</td>
-					
-						<td>
-							<?php
-								echo "<span style='color:red;'>  $PRODUTO_DESCONTO% </span>"  ; 
-							?>
-						</td>
+					 <tbody id="myTable">
+						<tr>
+							<td>
+								<?php
+									echo $PRODUTO_ID;
+								?>
+							</td>
+							<td>
+								<?php   
+									echo $pro_PRODUTO_NOME; 
+								?>
+							</td>
 						
-						<td>
-							<?php
-								$precoComDesconto = ($PRODUTO_PRECO /100) *($PRODUTO_DESCONTO);
-								$desconto =  $PRODUTO_PRECO - $precoComDesconto ; 
-								echo " <span style='color:yellow;'> R$$desconto</span> "; 
-							?>
-						</td>
-
-						<td>
-							<?php
-								echo  $PRODUTO_DESC ;
-							?>
-						</td>
+							<td>
+								<?php    
+									echo  $CATEGORIA_ID ; 
+								?>
+							</td>
 					
-						<td>
-							<?php
-								echo  $PRODUTO_QTD ;
-							?>
-						</td>
+							<td>
+								<?php    
+									echo "<span style='color:green;'>R$$PRODUTO_PRECO</span>" ; 
+								?>
+							</td>
 						
-						<td >
-							<a type="button"  data-bs-toggle="modal" data-bs-target="#mymodal<?php echo $PRODUTO_ID; ?>"><i style="color: yellow" class="align-middle" data-feather="image"></i> <span class="align-middle"> </a>
-							<div class="modal body" id="mymodal<?php echo $PRODUTO_ID;  $capituraid = $PRODUTO_ID; ?>" tabindex="-1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel">
-								<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-body">
-									
-									<?php
-									
-									$stmt = $pdo->prepare("SELECT * FROM PRODUTO_IMAGEM WHERE PRODUTO_ID = $capituraid");
-									$stmt->execute();
+							<td>
+								<?php
+									echo "<span style='color:red;'>  $PRODUTO_DESCONTO% </span>"  ; 
+								?>
+							</td>
+							
+							<td>
+								<?php
+									$precoComDesconto = ($PRODUTO_PRECO /100) *($PRODUTO_DESCONTO);
+									$desconto =  $PRODUTO_PRECO - $precoComDesconto ; 
+									echo " <span style='color:yellow;'> R$$desconto</span> "; 
+								?>
+							</td>
 
-									if($stmt->rowCount() > 0){
-										while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
-											"{$dados['IMAGEM_ID']}";
-											echo "<img  src='{$dados['IMAGEM_URL']}'>";
-											echo "{$dados['IMAGEM_ORDEM']}";
-											echo "<a style='position:relative; left:46%; ' href='atualizar/atualizarform_imagem.php?id={$dados['IMAGEM_ID']} '><i class='align-middle' data-feather='image'></i> <span class='align-middle'></span></a>";
-										}
-									 
-										}
-									?>
-									<br>
-									<br>
-									<br>
-									<div class="modal-footer" >
-											<button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-									</div>
-										</div> 
-									</div>
-								</div>
-								</div>
-							</div>    
-						</td>
-						<td>
-						<?php
-						$PRODUTO_ATIVO;
-						if($PRODUTO_ATIVO == "1"){ ?>
-							<i class="align-middle" style="color:green;"  data-feather="check-circle"></i> <span class="align-middle"></span>
-						<?php }else{ ?>
-							<i class="align-middle" style="color:red;" data-feather="alert-octagon"></i> <span class="align-middle"></span>
-						<?php
-						} 
-						?>
-						</td> 
-						<td>
-							<a href="atualizar/atualizarform_produto.php?id=<?php echo $PRODUTO_ID ?>"><i class="align-middle" data-feather="edit"></i> <span class="align-middle"></span></a>
-						</td>
-					<!-- <td>
-							<a href="excluirform_adm.php?id=<?php// echo $linha["PRODUTO_ID"] ?>">Excluir</a>
-						</td> -->
-					</tr>
+							<td>
+								<?php
+									echo  $PRODUTO_DESC ;
+								?>
+							</td>
+						
+							<td>
+								<?php
+									echo  $PRODUTO_QTD ;
+								?>
+							</td>
+							
+							<td >
+								<a type="button"  href="atualizar/atualizarform_imagem.php?id=<?php echo $PRODUTO_ID; ?>"><i style="color: yellow" class="align-middle" data-feather="image"></i> <span class="align-middle"> </a>
+							</td>
+							<td id="ProdutoAtivo">
+							<?php
+							$PRODUTO_ATIVO;
+							if($PRODUTO_ATIVO == "1"){ ?>
+								<i class="align-middle" style="color:green;"  data-feather="check-circle"></i><span class="align-middle"></span>
+							<?php }else{ ?>
+								<i class="align-middle" style="color:red;" data-feather="alert-octagon"></i> <span class="align-middle"></span>
+							<?php
+							} 
+							?>
+							</td> 
+							<td>
+								<a href="atualizar/atualizarform_produto.php?id=<?php echo $PRODUTO_ID ?>"><i class="align-middle" data-feather="edit"></i> <span class="align-middle"></span></a>
+							</td>
+						<!-- <td>
+								<a href="excluirform_adm.php?id=<?php// echo $linha["PRODUTO_ID"] ?>">Excluir</a>
+							</td> -->
+						</tr>
+					</tbody>
 				<?php
 					}
 				?>
@@ -368,6 +393,7 @@
 
 	<script src="js/app.js"></script>
 	<script src="js/teste2.js"></script>
+	<script src="js/procura.js"></script>
 
 </body>
 

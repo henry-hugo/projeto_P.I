@@ -1,6 +1,16 @@
 <?php
   require "function/verificar.php";
-  $cmd = $pdo->query("SELECT * FROM ADMINISTRADOR") ; 
+  $_POST['produto'] = $_POST['produto']  ?? '' ;
+  //$cmd = $pdo->query("SELECT * FROM ADMINISTRADOR");
+  if($_POST['produto'] == ''){
+  	$cmd = $pdo->query("SELECT * FROM ADMINISTRADOR");
+  }
+  if($_POST['produto'] == '0'){
+	$cmd = $pdo->query("SELECT * FROM ADMINISTRADOR WHERE ADM_ATIVO = 0");
+}
+if($_POST['produto'] == '1'){
+	$cmd = $pdo->query("SELECT * FROM ADMINISTRADOR WHERE ADM_ATIVO = 1");
+} 
   if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
   <!--setcookie( 'nome', )-->
 <!DOCTYPE html>
@@ -18,6 +28,9 @@
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="canonical" href="https://demo-basic.adminkit.io/ui-buttons.html" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 	<title>Buttons | AdminKit Demo</title>
 
@@ -108,6 +121,7 @@
 					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 						<i class="align-middle" data-feather="plus"></i> <span class="align-middle"> Nova Administrador</span>
 					</button>
+					
 					<!-- Modal -->
 					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -146,9 +160,34 @@
 							</form>	
 						</div>
 						</div>
+					</div>				
+				
+				<div style="float:right;" >
+						<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+							<span class="text-dark">filtro</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-end">
+							
+								<form action="" id="FormId" method="post" style="text-align:center;">
+									<div > 
+										<input type="radio" onclick="document.getElementById('FormId').submit();"  name="produto" id="" value="">
+										<label for="todos" class="form-label" ><span style="color:blue;">TODOS</span></label>
+									</div>
+									<div>
+										<input type="radio" onclick="document.getElementById('FormId').submit();" name="produto" id="" value="1">
+										<label for="ativo" class="form-label"><span style="color:blue;">ATIVO</span></label>
+									</div>
+									<div>
+										<input type="radio" onclick="document.getElementById('FormId').submit();" name="produto" id="" value="0">
+										<label for="desativo" class="form-label"><span style="color:blue;">DESATIVO</span></label>
+									</div>
+								</form>
+							
+						</div>
 					</div>
-			<h1>Listar os Administradores</h1> 
-				<br>
+					<div>
+						<input class="form-control" id="myInput" type="search"  placeholder="Procurar.." style="float:right; width:300px;">
+					</div>
 				<table class="table table-dark table-striped">
 					<tr>
 						<th scope="col">ID</th>
@@ -161,7 +200,8 @@
 					</tr>
 			<?php
 			while($linha = $cmd->fetch()){
-			?>    
+			?>  
+			<tbody id="myTable">  
 				<tr>
 					<td>
 						<?php
@@ -181,7 +221,8 @@
 					</td>    
 					<td>
 						<?php
-						echo $linha["ADM_SENHA"];
+						$linha["ADM_SENHA"];
+						echo ("***********");
 						?>
 					</td>
 					<td>
@@ -203,9 +244,11 @@
 						<a href="excluirform_adm.php"><i class="align-middle" style="color:black;" data-feather="trash-2"></i> <span class="align-middle"></span></a>
 					</td>        
 				</tr>
+			</tbody>
 			<?php 
 			}
 			?>
+			</table>
 			</main>
 		</div>
 	</div>
@@ -213,6 +256,7 @@
 	<script src="js/app.js"></script>
 	<script src="js/teste.js"></script>
 	<script src="js/teste2.js"></script>
+	<script src="js/procura.js"></script>
 
 </body>
 

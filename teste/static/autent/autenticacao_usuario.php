@@ -30,7 +30,7 @@
                 echo "<script>alert('Por favor, digite um email válido.');";
                 echo "location.href='../index.html'</script>";
             } else { 
-                header('Location: http://localhost:8080/projeto_P.I/paper-dashboard-master/examples/index.html');
+                header('Location: ../index.html');
                 exit();
             }
             ?>

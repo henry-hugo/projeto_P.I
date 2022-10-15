@@ -1,3 +1,6 @@
+<?php 
+require '../function/verificar.php';
+?>
 <html>
         <head>
             <title>Excluir o Administrador</title>
@@ -52,3 +55,6 @@
             </Form>
         </body>
         </html>
+        <?php
+        if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
+    <?php else: header ("Location:../loginadministrador.php"); endif?>

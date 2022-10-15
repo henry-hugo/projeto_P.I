@@ -32,5 +32,6 @@
                         header('Location: ../categoria.php');
             }
         }
-        
+        if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
+            <?php else: header ("Location:../loginadministrador.php"); endif?>  
     ?>

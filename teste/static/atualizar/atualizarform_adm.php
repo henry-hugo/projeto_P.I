@@ -13,10 +13,11 @@ require "../function/conexao.php";
     $ativo = 0;
 };
 
+/*
 $query_adm_pes = "SELECT ADM_ID FROM ADMINISTRADOR WHERE ADM_EMAIL= :email LIMIT 1";
 $resultado_adm =$pdo->prepare($query_adm_pes);
 $resultado_adm->bindParam(':email', $_POST['email'],PDO::PARAM_STR);
-$resultado_adm->execute();
+$resultado_adm->execute();*/
 
 if(($resultado_adm) and ($resultado_adm->rowCount() != 0)){
     $_SESSION['msg'] =" <div class='alert alert-warning'>
@@ -35,4 +36,6 @@ if(($resultado_adm) and ($resultado_adm->rowCount() != 0)){
     echo "erro";
 }
 }
+if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
+    <?php else: header ("Location:../loginadministrador.php"); endif?>
 ?>

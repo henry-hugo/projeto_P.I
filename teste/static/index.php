@@ -184,7 +184,7 @@
 														<h5 class="card-title">Futuro Faturamento</h5>
 													</div>
 													<?php 
-														$query_ingresso = "SELECT SUM(PRODUTO_QTD * PRODUTO_PRECO) AS preco_ingressos FROM PRODUTO_ESTOQUE, PRODUTO";
+														$query_ingresso = "SELECT SUM(PRODUTO_QTD * PRODUTO_PRECO) AS preco_ingressos FROM PRODUTO_ESTOQUE, PRODUTO WHERE PRODUTO_ATIVO = 1";
 														$ingresso = $pdo->prepare($query_ingresso);
 														$ingresso->execute();
 														$row_ingresso = $ingresso->fetch(PDO::FETCH_ASSOC);
