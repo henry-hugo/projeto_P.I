@@ -1,5 +1,5 @@
 <?php
-require "../function/conexao.php";
+require "../function/verificaratualizar.php";
 
  //captura o post do usuario
  $nome = $_POST["nome"];
@@ -24,6 +24,7 @@ if(($resultado_adm) and ($resultado_adm->rowCount() != 0)){
                         email ja existe !!
                         </div>";
                         header('Location: ../adm.php');
+                        exit();
 }else{
  $admin = $pdo->query("UPDATE ADMINISTRADOR SET ADM_ATIVO= '$ativo', ADM_NOME= '$nome' , ADM_EMAIL= '$email' , ADM_SENHA= '$hash' WHERE ADM_ID= '$id'")->fetchAll();
 
@@ -32,8 +33,13 @@ if(($resultado_adm) and ($resultado_adm->rowCount() != 0)){
     ADMINISTRADOR atualizado com sucesso!
     </div>";
     header('Location: ../adm.php');
+    exit();
 } else { 
-    echo "erro";
+    $_SESSION['msg'] =" <div class='alert alert-danger'>
+    ERRO: tente novamente !!
+    </div>";
+    header('Location: ../adm.php');
+    exit();
 }
 }
 if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>

@@ -1,5 +1,5 @@
 <?php
-    require_once '../function/conexao.php';
+     require "../function/verificaratualizar.php";
 
         //captura o vaor das variaves
         $nome = $_POST["nome"];
@@ -26,6 +26,7 @@
                                 email ja existe !!
                                 </div>";
                                 header('Location: ../adm.php');
+                                exit();
         }else{
              // monta o comando da inserçao
             $cmdtext = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA, ADM_ATIVO) VALUES ('" . $nome . "','" . $email . "','" . $hash . "','" . $ativo . "')";
@@ -39,8 +40,13 @@
                                      ADMINISTRADOR cadastrado com sucesso!
                                     </div>";
                                     header('Location: ../adm.php');
+                                    exit();
             } else {
-                echo "ocorreu um erro ";
+                $_SESSION['msg'] =" <div class='alert alert-danger'>
+                ERRO:ADMINISTRADOR nao pode ser cadastrado !!
+               </div>";
+               header('Location: ../adm.php');
+               exit();
             }
         }
        

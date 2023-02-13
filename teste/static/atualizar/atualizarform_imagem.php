@@ -1,32 +1,28 @@
 <?php
 
-require '../function/verificar.php';
-
+require "../function/verificaratualizar.php";
+$i=0;
 
 $id = $_GET["id"];
 
             //realiza uma query sql para buscar o adm que tem o email e a senha passado 
-            $admin = $pdo->query("SELECT * FROM PRODUTO_IMAGEM WHERE IMAGEM_ID=" . $id)->fetch();
+            $admin = $pdo->query("SELECT * FROM PRODUTO_IMAGEM WHERE PRODUTO_ID=  $id")->fetch();
 
-            //se o retorna for vazio 0 , entao a senha ou email estao incorretos
+       
 
             if(!empty($imagem_url = $admin['IMAGEM_URL'])){
 				$imagem_url = $admin['IMAGEM_URL'];
 			}else{
-				$_SESSION['msg'] =" <div class='alert alert-primary'>
-									NAO TEM NENHUMA IMAGEM!!
-									</div>";
-									header('Location: ../produto.php');
+				$query_imagem = "INSERT INTO PRODUTO_IMAGEM
+				(IMAGEM_ORDEM, IMAGEM_URL,PRODUTO_ID) VALUES
+				(0,'https://th.bing.com/th/id/R.7954a9a2a6c24affc155b2a454ed4a9e?rik=JcbVY8JpWjvUfw&riu=http%3a%2f%2fconkast.com.br%2fwp-content%2fuploads%2f2018%2f12%2fimagemindisponivel.png&ehk=3fMBjyj0CcaLc%2bc6ZOMJZPmk4TfEjZpDaxNoO%2b6smQI%3d&risl=&pid=ImgRaw&r=0', $id)";
+			    $img = $pdo->prepare($query_imagem);
+				$img->execute();
+				header('Location: ../produto.php'); 
+				exit();
 			} 
 			
-            if(!empty($imagem_ordem = $admin['IMAGEM_ORDEM'])){
-				$imagem_ordem = $admin['IMAGEM_ORDEM'];
-			}else{
-				$_SESSION['msg'] =" <div class='alert alert-primary'>
-									NAO TEM NENHUMA IMAGEM!!
-									</div>";
-									header('Location: ../produto.php');
-			} 
+          
              
 
             if(isset($_SESSION['iduser']) && !empty($_SESSION['iduser'])): ?>
@@ -54,8 +50,8 @@ $id = $_GET["id"];
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<style>
 		img{
-			width:200px;
-			height:200px;
+			width:350px;
+			height:250px;
 			padding: 10px;
 		}
 		
@@ -129,26 +125,62 @@ $id = $_GET["id"];
 			</nav>
 
 			<main class="content">
+				<div style="position:relative;left:100%;transform: translate(-20%);">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+					<i class="align-middle" data-feather="plus"></i>
+					Adicionar Imagem
+				</button>
+				</div>
+				
+
 			
 			<?php
+			
 										
-										$stmt = $pdo->prepare("SELECT * FROM PRODUTO_IMAGEM WHERE PRODUTO_ID = $id ORDER BY IMAGEM_ORDEM");
+										$stmt = $pdo->prepare("	SELECT * 
+																FROM PRODUTO_IMAGEM 
+																WHERE PRODUTO_ID = $id 
+																ORDER BY IMAGEM_ORDEM");
 										$stmt->execute();
 
 										if($stmt->rowCount() > 0){
 											while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
+												echo "<div style='float:left;' >";
+													echo "<img   src='{$dados['IMAGEM_URL']}'><br>";
+													echo "<Form class='was-validated' Action='atualizar_imagem.php' method='POST' enctype='multipart/form-data'>";
+													echo "<input type='hidden' name='id' value='{$dados['IMAGEM_ID']}'>";
+													echo "<input type='number' name='imagem_ordem' oninput='validity.valid||(value='');' min='0'  value='{$dados['IMAGEM_ORDEM']}' style='width:40px;' readOnly >";
+													echo "<input type='file' name='imagem' id='imagem_url' class='form-label' required><br> ";  
+													// value='{$dados['IMAGEM_URL']}'>											
+													echo "<button type='submit'><i class='align-middle' data-feather='image'></i> <span class='align-middle'></span></button>";
+													echo "</form>"; 
+													$i++;
+												echo "</div>";	
+												
+											}
+											echo ("
+											<div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+												<div class='modal-dialog'>
+													<div class='modal-content'>
+														<h2>Adicionar Imagem</h2>
+														<div class='modal-body'>
+														<form class='was-validated' action='../criaproduto/criaprodutos_imagem.php' method='POST' enctype='multipart/form-data'>
+														<input type='hidden' name='id' value='$id'>
+														<input type='hidden' name='ordem' value='$i' readOnly>
+														<label for='exampleFormControlInput1' class='form-label'> imagem</label>
+														<input type='file' class='form-label' name='imagem[]'  ><br>
+														<input type='submit' name='enviar' value='enviar'>
+														</form>
+																 							
+														</div>
+													</div>
+												</div>
+											</div>
+											");
 											
-												echo "<img  src='{$dados['IMAGEM_URL']}'><br>";
-												echo "<Form class='was-validated' Action='atualizar_imagem.php' method='POST'>";
-												echo "<input type='hidden' name='id' value='{$dados['IMAGEM_ID']}'>";
-												echo "<input type='number' name='imagem_ordem' oninput='validity.valid||(value='');' min='1'  value='{$dados['IMAGEM_ORDEM']}' style='width:40px;' >";
-												echo "<input type='url' name='imagem_url' class='form-label'   value='{$dados['IMAGEM_URL']}'>";												
-												
-												echo "<button type='submit'><i class='align-middle' data-feather='image'></i> <span class='align-middle'></span></button>";
-												echo "</form>";
-											}
 												
 											}
+											
 										?>
 
 
@@ -168,7 +200,7 @@ $id = $_GET["id"];
 	</div>
 
 	<script src="../js/app.js"></script>
-  <script src="../js/teste.js"></script>
+  <script src="../js/teste3.js"></script>
 
 </body>
 

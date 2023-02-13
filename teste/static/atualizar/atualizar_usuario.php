@@ -1,5 +1,5 @@
 <?php 
-require '../function/verificar.php';
+ require "../function/verificaratualizar.php";
 ?>
 <html>
         <head>

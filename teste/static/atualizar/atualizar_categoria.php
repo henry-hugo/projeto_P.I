@@ -1,5 +1,5 @@
 <?php
-  require "../function/verificar.php";
+   require "../function/verificaratualizar.php";
    //coleta os dados do adm
 
    $id = $_GET["id"];
@@ -105,14 +105,15 @@
             <Form class="was-validated" Action="atualizarform_categoria.php" method="POST">
                 <input type="hidden" name="id"  value="<?php echo $id ?>">
 
-                <label for="validationText" class="form-label">Nome da Categoria</label> 
-                <input type="text" class="form-control is-invalid" id="validationText" name="nome" required onchange='campobranco' value="<?php echo $nome ?>">
+                <label for="validationText" class="form-label">Nome da Categoria</label>
+				<input  type="range" class="form-range" min="0" max="1" id="ativo" name="ativo" value="1" style="width:50px; padding-top:13px;">
+                <input type="text" class="form-control is-invalid" id="validationText" name="nome"  value="<?php echo $nome ?>" readOnly>
    
                 <label for="validationTextarea" class="form-label"> descriçao</label> 
                 <Textarea type="Textarea" class="form-control is-invalid" id="validationTextarea" name="desc" required onchange='campobranco'><?php echo $desc ?></Textarea>
                 
-				<label for="customRange2" class="form-label">ATIVO </label>
-				<input  type="range" class="form-range " min="0" max="1" id="ativo" name="ativo" value="1" >
+				
+				
                 <br>
 				<input type="submit" value="Enviar"> 
             </Form>

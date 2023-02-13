@@ -1,3 +1,6 @@
+<?php
+ require "../function/verificaratualizar.php";
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

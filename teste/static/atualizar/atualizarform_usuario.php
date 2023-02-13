@@ -1,5 +1,5 @@
 <?php
-require '../function/verificar.php';
+ require "../function/verificaratualizar.php";
  //dados para conexao ao mysql
  $mysqlhostname = "144.22.244.104";
  $mysqlport ="3306";

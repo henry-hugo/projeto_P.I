@@ -1,6 +1,6 @@
 <?php
 
-require '../function/verificar.php';
+require "../function/verificaratualizar.php";
 
 $id = $_GET["id"];
 
@@ -121,11 +121,11 @@ $id = $_GET["id"];
                 <label for="exampleFormControlInput1"  class="form-label">NOME</label>
                 <input type="text" name="nome" class="form-control"  required onchange='campobranco' value="<?php echo $nome ?>">
                 <label for="exampleFormControlInput1" class="form-label">PREÇO</label>
-                <input type="text" name="preco" class="form-control" required onchange='campobranco' value="<?php echo $preco ?>">
+                <input type="number" oninput="validity.valid||(value='');" min="1"  step="0.01" name="preco" class="form-control" required onchange='campobranco' value="<?php echo $preco ?>">
                 <label for="exampleFormControlInput1" class="form-label">CATEGORIA</label>
                 <select class="form-control" name="categoria">
                   <?php
-                    $stmt = $pdo->prepare("SELECT * FROM CATEGORIA");
+                    $stmt = $pdo->prepare("SELECT * FROM CATEGORIA WHERE CATEGORIA_ATIVO ");
                     $stmt->execute();
 
                     if($stmt->rowCount() > 0){
@@ -135,7 +135,7 @@ $id = $_GET["id"];
                     }
                   ?>
                 </select>
-                <label for="exampleFormControlInput1" class="form-label">DESCONTO<i style="font-size:12px;">(de 0% á 100%)</i></label>
+                <label for="exampleFormControlInput1" class="form-label" >DESCONTO<i style="font-size:12px;">(de 0% á 100%)</i></label>
                 <input type="number" name="desconto" oninput="validity.valid||(value='');" min="0" max="100"  class="form-control" required onchange='campobranco' value="<?php echo $desconto ?>">
                 <label for="exampleFormControlInput1" class="form-label">DESCRIÇÃO</label>
                 <textarea name="desc" class="form-control" required onchange='campobranco'><?php echo $desc ?></textarea>
@@ -143,7 +143,7 @@ $id = $_GET["id"];
                 <input type="number" name="quantidade" oninput="validity.valid||(value='');" min="1" max="2000000000" class="form-control" required onchange='campobranco' value="<?php echo $quantidade ?>">
 				<br>
                 <label for="exampleFormControlInput1" class="form-label">PRODUTO ATIVO</label>
-                <input type="checkbox" id="ativo" name="ativo"   value="1" checked>
+				<input  type="range" class="form-range" min="0" max="1" id="ativo" name="ativo" value="1" style="width:50px; padding-top:13px;">
                 <BR>
                 <input type="submit" value="Enviar"> 
             </Form>

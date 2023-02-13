@@ -143,13 +143,10 @@ if($_POST['produto'] == ''){
 			</nav>
 
 			<main class="content">
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="align-middle" data-feather="plus"></i> Criar Produto</button>
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-						<i class="align-middle" data-feather="plus"></i> <span class="align-middle"> Adicionar Estoque</span>
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+					<i class="align-middle" data-feather="plus"></i>
+					Criar Produto
 				</button>
-				
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalToggle"><i class="align-middle" data-feather="plus"></i> <span class="align-middle"> Adicionar Fotos</button>
 				<div style="float:right;" >
 						<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown" aria-expanded="false">
 							<span class="text-dark">filtro</span>
@@ -178,54 +175,20 @@ if($_POST['produto'] == ''){
 					<input class="form-control" id="myInput" type="search"  placeholder="Procurar.." style="float:right; width:300px;">
 				</div>
 				
-				<div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel">
-				<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">	
-						<form class="was-validated" action="criaproduto/criaprodutos_imagem.php" method="POST">
-						<h3 class="modal-title">Adicionar foto</h3>
-						<label for="exampleFormControlInput1" class="form-label">ordem imagem</label>
-						<input type="number" name="ordem" oninput="validity.valid||(value='');" min="1" required onchange='campobranco' class="form-control">
-						<label for="exampleFormControlInput1" class="form-label">produto</label>
-						<select name="produtoid"  class="form-select is-invalid"  required aria-label="select example">
-						
-						<?php
-					
-							$stmt = $pdo->prepare("SELECT * FROM PRODUTO");
-							$stmt->execute();
-
-							if($stmt->rowCount() > 0){
-							while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
-								echo "<option value='{$dados['PRODUTO_ID']}'>{$dados['PRODUTO_NOME']}</option>";
-							}
-						}					  
-						?>
-						</select>
-						<label for="exampleFormControlInput1" class="form-label">url imagem</label>
-						<input type="url" required onchange='campobranco' class="form-control" name="imgurl">
-						<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-									<input type="submit" value="enviar" class="btn btn-primary">
-								</div> 
-						</form>
-					</div>
-					</div>
-				</div>
-				</div>
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 					<div class="modal-body">
 					
-				<form class="was-validated" action="criaproduto/criaprodutos.php" method="POST">
-						<h3 class="modal-title" id="staticBackdropLabel">Cadastro de produto <input type="checkbox" id="ativo" name="ativo" value="1" checked></h3>
+				<form class="was-validated" action="criaproduto/criaprodutos.php" method="POST" enctype="multipart/form-data">
+						<h3 class="modal-title" id="staticBackdropLabel">Cadastro de produto <input  type="range" class="form-range" min="0" max="1" id="ativo" name="ativo" value="1" style="width:50px; padding-top:13px;"></h3> 
 						<label for="exampleFormControlInput1" class="form-label">Nome</label>
 						<input type="text"  class="form-control is-invalid" name="nome" required onchange='campobranco' id="categoria_name" placeholder="abc">
 						<label for="exampleFormControlInput1" class="form-label">Categoria</label>
 						<select class="form-select is-invalid"  required aria-label="select example"  name="categoria">
 							
 						<?php
-							$stmt = $pdo->prepare("SELECT * FROM CATEGORIA");
+							$stmt = $pdo->prepare("SELECT * FROM CATEGORIA WHERE CATEGORIA_ATIVO");
 							$stmt->execute();
 
 							if($stmt->rowCount() > 0){
@@ -238,53 +201,22 @@ if($_POST['produto'] == ''){
 						<label for="exampleFormControlInput1" class="form-label">Descrição</label> 
 						<textarea class="form-control" name="descricao" required onchange='campobranco'></textarea>
 						<label for="exampleFormControlInput1" class="form-label">Preço</label>
-						<input type="number" class="form-control" oninput="validity.valid||(value='');" min="1" name="preco" required onchange='campobranco'>
-						<label for="exampleFormControlInput1" class="form-label">Desconto</label>
+						<input type="number" class="form-control" oninput="validity.valid||(value='');" min="1"  step="0.01" name="preco"   required onchange='campobranco'>
+						<label for="exampleFormControlInput1" class="form-label">Desconto <i>(0% á 100%)</i></label>
 						<input type="number" class="form-control" oninput="validity.valid||(value='');" min="0" max="100" name="desconto" required onchange='campobranco'>
+						<label for="exampleFormControlInput1"  class="form-label">Quantidade Estoque<i>(1 á 999999999)</i> </label>
+						<input type="number" class="form-control" oninput="validity.valid||(value='');" min="1" max="2000000000" name="quantidade" required onchange='campobranco' >
+						<label for="exampleFormControlInput1" class="form-label"> imagem</label>
+						<input type="file" class="form-label" name="imagem[]" multiple="multiple" >
 						<div class="modal-footer">
 									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-									<input type="submit" value="enviar" class="btn btn-primary">
+									<input type="submit" name="SendCadUser" value="enviar" class="btn btn-primary">
 								</div> 
 						</form>
 					</div>
 					</div>
 				</div>
 				</div>
-				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="10" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-						<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-							<h3>Quantidade Estoque</h3>
-							</div>
-							<div class="modal-body">
-							<form class="was-validated" action="criaproduto/criaprodutos_estoque.php" method="POST">
-								<label for="exampleFormControlInput1" class="form-label">Nome Categoria</label>
-								<select name="produtoid" class="form-select">
-									
-									<?php
-									
-										$stmt = $pdo->prepare("SELECT * FROM PRODUTO");
-										$stmt->execute();
-
-										if($stmt->rowCount() > 0){
-											while ($dados = $stmt->fetch(pdo::FETCH_ASSOC)){
-											echo "<option value='{$dados['PRODUTO_ID']}'>{$dados['PRODUTO_NOME']}</option>";
-											}
-										}  
-										?>
-									</select>
-									<label for="exampleFormControlInput1"  class="form-label">Quantidade Estoque </label>
-									<input type="number" class="form-control" oninput="validity.valid||(value='');" min="1" max="2000000000" name="quantidade" required onchange='campobranco' >
-									<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-									<input type="submit" value="enviar" class="btn btn-primary">
-									</div>  
-								</div>
-							</form>	
-						</div>
-						</div>
-					</div>
-					<div>
 
 				<table class="table table-dark table-striped">
 					<tr>
@@ -327,13 +259,15 @@ if($_POST['produto'] == ''){
 							</td>
 					
 							<td>
-								<?php    
+								<?php 
+								$PRODUTO_PRECO = number_format($PRODUTO_PRECO, 2, '.', '');   
 									echo "<span style='color:green;'>R$$PRODUTO_PRECO</span>" ; 
 								?>
 							</td>
 						
 							<td>
 								<?php
+								$PRODUTO_DESCONTO = number_format($PRODUTO_DESCONTO, 2, '.', '');
 									echo "<span style='color:red;'>  $PRODUTO_DESCONTO% </span>"  ; 
 								?>
 							</td>
@@ -341,7 +275,8 @@ if($_POST['produto'] == ''){
 							<td>
 								<?php
 									$precoComDesconto = ($PRODUTO_PRECO /100) *($PRODUTO_DESCONTO);
-									$desconto =  $PRODUTO_PRECO - $precoComDesconto ; 
+									$desconto =  $PRODUTO_PRECO - $precoComDesconto ;
+									$desconto = number_format($desconto, 2, '.', '');
 									echo " <span style='color:yellow;'> R$$desconto</span> "; 
 								?>
 							</td>

@@ -1,6 +1,7 @@
 <?php
 
 
+
 class ADMINISTRADOR{
 
     public function login($email , $senha){

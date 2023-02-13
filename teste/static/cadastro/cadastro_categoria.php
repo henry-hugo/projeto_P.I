@@ -1,5 +1,5 @@
 <?php
- require_once "../function/verificar.php";
+ require "../function/verificaratualizar.php";
 
  $nome = $_POST["nome"];
  $desc = $_POST["descricao"];
@@ -33,7 +33,7 @@
                                 </div>";
                     header('Location: ../categoria.php');
         } else {
-            $_SESSION['msg'] =" <div class='alert alert-danger'>
+            $_SESSION['msg'] =" <div class='alert alert-warning'>
                                 categoria ja existe !!
                                 </div>";
             header('Location: ../categoria.php');

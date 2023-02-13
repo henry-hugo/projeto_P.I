@@ -1,5 +1,5 @@
         <?php
-  require "../function/verificar.php";
+  require "../function/verificaratualizar.php";
    //coleta os dados do adm
 
    $id = $_GET["id"];
@@ -109,15 +109,15 @@
                     <label for="exampleFormControlInput1" class="form-label">NOME</label>
                     <input type="text" name="nome" class="form-control" required onchange='campobranco' value="<?php echo $nome ?>">
                     
-                    <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
-                    <input type="email" name="email" class="form-control" required onchange='campobranco' value="<?php echo $email ?>" readonly>
+                    <label for="exampleFormControlInput1" class="form-label">EMAIL </label>
+                    <input type="email" name="email" class="form-control" required  value="<?php echo $email ?>" readOnly >
                     
                     <label for="exampleFormControlInput1" class="form-label">SENHA</label>
-                    <input type="text" name="senha" class="form-control" required onchange='campobranco' value="0">
+                    <input type="password" name="senha" class="form-control" required onchange='campobranco' value="0000000000">
                     
                     <label for="exampleFormControlInput1" class="form-label">ATIVO</label>
-                    <input type="checkbox" id="ativo" name="ativo"  value="1" checked>
-                    
+                    <input  type="range" class="form-range" min="0" max="1" id="ativo" name="ativo" value="1" style="width:50px; padding-top:13px;">
+                    <BR>
                     <input type="submit" value="Enviar"> 
                 </Form>
 			
@@ -129,6 +129,7 @@
 
 	<script src="../js/app.js"></script>
 	<script src="../js/teste.js"></script>
+
 
 </body>
 

@@ -1,3 +1,6 @@
+<?php
+     require "../function/verificaratualizar.php";
+?>
 <html>
         <head>
             <title>Excluir o Administrador</title>

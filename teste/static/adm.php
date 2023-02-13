@@ -3,7 +3,7 @@
   $_POST['produto'] = $_POST['produto']  ?? '' ;
   //$cmd = $pdo->query("SELECT * FROM ADMINISTRADOR");
   if($_POST['produto'] == ''){
-  	$cmd = $pdo->query("SELECT * FROM ADMINISTRADOR");
+  	$cmd = $pdo->query("SELECT * FROM ADMINISTRADOR"); 
   }
   if($_POST['produto'] == '0'){
 	$cmd = $pdo->query("SELECT * FROM ADMINISTRADOR WHERE ADM_ATIVO = 0");

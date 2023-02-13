@@ -1,5 +1,5 @@
 <?php
- require "../function/verificar.php";
+ require "../function/verificaratualizar.php";
 
 //captura o vaor das variaves
             $nome = $_POST["nome"];
@@ -11,13 +11,13 @@
                 $ativo = 0;
             };
 
-            $query_categoria_pes = "SELECT CATEGORIA_ID FROM CATEGORIA WHERE CATEGORIA_NOME= :nome LIMIT 1";
+            /*$query_categoria_pes = "SELECT CATEGORIA_ID FROM CATEGORIA WHERE CATEGORIA_NOME= :nome LIMIT 1";
             $resultado_categoria =$pdo->prepare($query_categoria_pes);
             $resultado_categoria->bindParam(':nome', $_POST['nome'],PDO::PARAM_STR);
-            $resultado_categoria->execute();
+            $resultado_categoria->execute();*/
 
             if(($resultado_categoria) and ($resultado_categoria->rowCount() != 0)){
-                $_SESSION['msg'] =" <div class='alert alert-success'>
+                $_SESSION['msg'] =" <div class='alert alert-warning'>
                                     Categoria ja existe!
                                     </div>";
                                 header('Location: ../categoria.php');

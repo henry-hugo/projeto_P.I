@@ -1,6 +1,6 @@
 
 <?php
-      require_once '../function/conexao.php';
+       require "../function/verificaratualizar.php";
       //captura o vaor das variaves ou receber dados do formulario
      $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
   //verificar se clicou no botao
@@ -21,6 +21,11 @@
     estoque adicionado com sucesso!
     </div>";
     header('Location: ../produto.php');
+    exit();
 }else{
-echo 'erro';
+  $_SESSION['msg'] =" <div class='alert alert-danger'>
+  estoque nao pode ser adicionado!
+  </div>";
+  header('Location: ../produto.php');
+  exit();
 }    

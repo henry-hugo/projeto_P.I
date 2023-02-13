@@ -1,4 +1,6 @@
-
+<?php
+     require "../function/verificaratualizar.php";
+?>
         <html>
         <head>
             <title>Processamento de Exclusao de usuario</title>

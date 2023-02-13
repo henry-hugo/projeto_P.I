@@ -1,4 +1,5 @@
 <?php
+ 
             session_start();
             //dados para conexao ao mysql
             $mysqlhostname = "144.22.244.104";
